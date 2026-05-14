@@ -1,0 +1,313 @@
+'use client'
+
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { Check, X, ArrowRight, HelpCircle } from 'lucide-react'
+import AnimateIn from '@/components/AnimateIn'
+import { useLang } from '@/context/LanguageContext'
+
+function Tag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#C8A96E] font-light">
+      <span className="w-6 h-px bg-[#C8A96E]" />
+      {children}
+    </span>
+  )
+}
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '299',
+    period: 'pago único',
+    desc: 'La solución perfecta para lanzar tu presencia online con una web profesional.',
+    popular: false,
+    features: [
+      { text: 'Diseño web profesional personalizado', included: true },
+      { text: 'Hasta 5 páginas', included: true },
+      { text: 'Responsive (móvil + tablet + desktop)', included: true },
+      { text: 'SEO básico incluido', included: true },
+      { text: 'Formulario de contacto', included: true },
+      { text: 'Integración Google Maps', included: true },
+      { text: 'Revisión mensual de contenido', included: true },
+      { text: 'Soporte por email', included: true },
+      { text: 'Entrega en 7 días laborables', included: true },
+      { text: 'Páginas ilimitadas', included: false },
+      { text: 'SEO avanzado + Analytics', included: false },
+      { text: 'Soporte prioritario 24/7', included: false },
+      { text: 'Revisiones semanales', included: false },
+      { text: 'Blog integrado', included: false },
+    ],
+    cta: 'Empezar con Starter',
+    href: '/presupuesto?plan=starter',
+  },
+  {
+    name: 'Pro',
+    price: '499',
+    period: 'pago único',
+    desc: 'Para negocios que quieren destacar, crecer y no perder tiempo gestionando su web.',
+    popular: true,
+    features: [
+      { text: 'Diseño web profesional personalizado', included: true },
+      { text: 'Páginas ilimitadas', included: true },
+      { text: 'Responsive (móvil + tablet + desktop)', included: true },
+      { text: 'SEO avanzado + Google Analytics 4', included: true },
+      { text: 'Formulario de contacto avanzado', included: true },
+      { text: 'Integración Google Maps y redes sociales', included: true },
+      { text: 'Revisiones semanales de contenido', included: true },
+      { text: 'Soporte prioritario 24/7', included: true },
+      { text: 'Entrega en 5 días laborables', included: true },
+      { text: 'Blog integrado', included: true },
+      { text: 'Actualizaciones de contenido semanales', included: true },
+      { text: 'Optimización Core Web Vitals', included: true },
+      { text: 'Informe mensual de rendimiento', included: true },
+      { text: 'Chat de soporte en tiempo real', included: true },
+    ],
+    cta: 'Empezar con Pro',
+    href: '/presupuesto?plan=pro',
+  },
+  {
+    name: 'Hosting & Mantenimiento',
+    price: '29',
+    period: '/mes',
+    desc: 'Complemento mensual para mantener tu web activa, segura y siempre actualizada.',
+    popular: false,
+    features: [
+      { text: 'Hosting premium en servidores rápidos', included: true },
+      { text: 'Dominio .es o .com gratis el 1er año', included: true },
+      { text: 'Certificado SSL (HTTPS)', included: true },
+      { text: 'Backups automáticos diarios', included: true },
+      { text: 'Actualizaciones de seguridad', included: true },
+      { text: 'Monitorización 24/7 (uptime)', included: true },
+      { text: 'Resolución de incidencias en 24h', included: true },
+      { text: '1 hora de cambios de contenido/mes', included: true },
+      { text: 'Informe mensual de estado', included: true },
+    ],
+    cta: 'Contratar mantenimiento',
+    href: '/presupuesto?plan=hosting',
+  },
+]
+
+const faqs = [
+  {
+    q: '¿Cuánto tiempo tarda en estar lista mi web?',
+    a: 'El plan Starter tiene una entrega garantizada de 7 días laborables y el plan Pro en 5 días. Antes de empezar te pediremos los textos, imágenes y la información de tu negocio para no perder tiempo.',
+  },
+  {
+    q: '¿Qué pasa después de la entrega?',
+    a: 'Tu web te pertenece al 100%. Puedes gestionarla tú mismo o contratar nuestro plan de Hosting & Mantenimiento mensual para que nos encarguemos nosotros de todo.',
+  },
+  {
+    q: '¿El dominio y el hosting están incluidos?',
+    a: 'El diseño y desarrollo están incluidos en el precio. El dominio y hosting son costes aparte (aprox. 10-15€/mes), o puedes contratarlos con nuestro plan mensual de 29€.',
+  },
+  {
+    q: '¿Puedo pedir cambios después de la entrega?',
+    a: 'Sí. En el plan Starter tienes 1 revisión mensual incluida. En el Pro tienes revisiones semanales. También puedes solicitar cambios adicionales por hora.',
+  },
+  {
+    q: '¿Trabajáis con todo tipo de negocios?',
+    a: 'Sí. Hemos trabajado con restaurantes, clínicas, bufetes, tiendas físicas, consultoras, academias y muchos más. Si tienes un negocio, nosotros te hacemos la web.',
+  },
+  {
+    q: '¿Puedo empezar con el plan Starter y subir al Pro después?',
+    a: 'Por supuesto. Puedes empezar con Starter y actualizar cuando quieras. Solo cobraremos la diferencia de precio.',
+  },
+]
+
+export default function PricingPage() {
+  const { t } = useLang()
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="pt-32 pb-20 px-6 bg-[#0A0A0A] relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-[#C8A96E]/4 blur-[100px] pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-6"
+          >
+            <Tag>Precios</Tag>
+          </motion.div>
+          <div className="overflow-hidden">
+            <motion.h1
+              className="font-display text-5xl md:text-7xl font-light italic text-[#F0EDE8] leading-[0.92] mb-6"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            >
+              Precios claros.<br />
+              <span className="gold-gradient not-italic font-bold">Sin sorpresas.</span>
+            </motion.h1>
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-[#666] text-lg font-light max-w-xl mx-auto"
+          >
+            Elige el plan que mejor se adapte a tu negocio. Sin letra pequeña, sin costes ocultos.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Plans */}
+      <section className="pb-24 px-6 bg-[#0A0A0A]">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          {plans.map((plan, i) => (
+            <AnimateIn key={plan.name} delay={i * 0.1}>
+              <div className={`relative flex flex-col h-full p-8 ${
+                plan.popular
+                  ? 'bg-[#141414] border border-[#C8A96E]/50 glow-gold'
+                  : 'bg-[#141414] border border-[#2A2A2A]'
+              }`}>
+                {plan.popular && (
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 text-[10px] tracking-[0.15em] uppercase bg-[#C8A96E] text-[#0A0A0A] px-4 py-1 font-medium">
+                    {t('pricing.popular')}
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <div className={`text-xs tracking-[0.2em] uppercase mb-3 font-light ${plan.popular ? 'text-[#C8A96E]' : 'text-[#666]'}`}>
+                    {plan.name}
+                  </div>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display text-6xl font-light italic text-[#F0EDE8]">{plan.price}€</span>
+                    <span className="text-xs text-[#444] ml-1">{plan.period}</span>
+                  </div>
+                  <p className="text-sm text-[#666] mt-3 leading-relaxed">{plan.desc}</p>
+                </div>
+
+                <ul className="space-y-2.5 flex-1 mb-8">
+                  {plan.features.map((f) => (
+                    <li key={f.text} className={`flex items-start gap-2.5 text-sm ${f.included ? 'text-[#888]' : 'text-[#3A3A3A]'}`}>
+                      {f.included
+                        ? <Check size={13} className="text-[#C8A96E] shrink-0 mt-0.5" />
+                        : <X size={13} className="text-[#3A3A3A] shrink-0 mt-0.5" />
+                      }
+                      {f.text}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={plan.href}
+                  className={`block w-full text-center py-3 text-sm font-medium tracking-wide transition-all duration-300 ${
+                    plan.popular
+                      ? 'bg-[#C8A96E] text-[#0A0A0A] hover:bg-[#E2C99A]'
+                      : 'border border-[#2A2A2A] text-[#888] hover:border-[#C8A96E] hover:text-[#C8A96E]'
+                  }`}
+                >
+                  {plan.cta}
+                </Link>
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+
+        {/* Note */}
+        <AnimateIn delay={0.4} className="max-w-3xl mx-auto mt-8 text-center">
+          <p className="text-xs text-[#444]">
+            * Los precios no incluyen IVA. Dominio y hosting se facturan aparte o están incluidos en el plan mensual de 29€/mes.
+          </p>
+        </AnimateIn>
+      </section>
+
+      {/* Comparison table */}
+      <section className="py-20 px-6 bg-[#0D0D0D]">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-light italic text-[#F0EDE8] mb-3">
+              Compara los planes
+            </h2>
+          </AnimateIn>
+
+          <AnimateIn delay={0.1}>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[#2A2A2A]">
+                    <th className="text-left py-4 pr-4 text-[#666] font-light">Característica</th>
+                    <th className="text-center py-4 px-4 text-[#888] font-light">Starter</th>
+                    <th className="text-center py-4 px-4 text-[#C8A96E] font-light">Pro</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Páginas incluidas', 'Hasta 5', 'Ilimitadas'],
+                    ['SEO', 'Básico', 'Avanzado + Analytics'],
+                    ['Revisiones', 'Mensual', 'Semanal'],
+                    ['Soporte', 'Email', 'Prioritario 24/7'],
+                    ['Entrega', '7 días', '5 días'],
+                    ['Blog', '—', '✓'],
+                    ['Core Web Vitals', '—', '✓'],
+                    ['Actualizaciones de contenido', 'Mensual', 'Semanal'],
+                  ].map(([feat, starter, pro]) => (
+                    <tr key={feat as string} className="border-b border-[#1A1A1A]">
+                      <td className="py-3.5 pr-4 text-[#666]">{feat}</td>
+                      <td className="py-3.5 px-4 text-center text-[#555]">{starter}</td>
+                      <td className="py-3.5 px-4 text-center text-[#888]">{pro}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 px-6 bg-[#0A0A0A]">
+        <div className="max-w-3xl mx-auto">
+          <AnimateIn className="mb-12">
+            <Tag>FAQ</Tag>
+            <h2 className="font-display text-3xl md:text-4xl font-light italic text-[#F0EDE8] mt-4">
+              Preguntas frecuentes
+            </h2>
+          </AnimateIn>
+
+          <div className="space-y-0">
+            {faqs.map((faq, i) => (
+              <AnimateIn key={i} delay={i * 0.05}>
+                <div className="border-t border-[#1E1E1E] py-6">
+                  <div className="flex gap-4">
+                    <HelpCircle size={16} className="text-[#C8A96E] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[#F0EDE8] font-medium mb-2">{faq.q}</p>
+                      <p className="text-sm text-[#666] leading-relaxed">{faq.a}</p>
+                    </div>
+                  </div>
+                </div>
+              </AnimateIn>
+            ))}
+            <div className="border-t border-[#1E1E1E]" />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 px-6 bg-[#0D0D0D]">
+        <div className="max-w-3xl mx-auto text-center">
+          <AnimateIn>
+            <h2 className="font-display text-4xl font-light italic text-[#F0EDE8] mb-4">
+              ¿Aún tienes dudas?
+            </h2>
+            <p className="text-[#666] mb-8">Cuéntanos tu caso y te orientamos sin compromiso.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/presupuesto" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-sm font-semibold hover:bg-[#E2C99A] transition-colors duration-300 group">
+                Solicitar presupuesto
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+              </Link>
+              <Link href="/contacto" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-[#2A2A2A] text-[#F0EDE8] text-sm font-light hover:border-[#C8A96E] hover:text-[#C8A96E] transition-all duration-300">
+                Contactar
+              </Link>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+    </>
+  )
+}
