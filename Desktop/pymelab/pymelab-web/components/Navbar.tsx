@@ -38,14 +38,14 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#2A2A2A]'
+            ? 'bg-white/95 backdrop-blur-md border-b border-[#E5E2DC]'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none group">
-            <span className="font-display text-2xl font-light italic text-[#F0EDE8] tracking-tight">
+            <span className={`font-display text-2xl font-light italic tracking-tight transition-colors duration-500 ${scrolled ? 'text-[#0A0A0A]' : 'text-[#F0EDE8]'}`}>
               Pyme<span className="not-italic font-bold">Lab</span>
             </span>
             <span className="text-[9px] tracking-[0.25em] text-[#C8A96E] uppercase font-sans font-light">
@@ -60,7 +60,7 @@ export default function Navbar() {
                 key={key}
                 href={href}
                 className={`text-sm font-light tracking-wide transition-colors duration-200 relative group ${
-                  pathname === href ? 'text-[#C8A96E]' : 'text-[#B0ADA8] hover:text-[#F0EDE8]'
+                  pathname === href ? 'text-[#C8A96E]' : scrolled ? 'text-[#666] hover:text-[#0A0A0A]' : 'text-[#B0ADA8] hover:text-[#F0EDE8]'
                 }`}
               >
                 {t(key)}
@@ -76,7 +76,7 @@ export default function Navbar() {
             {/* Lang toggle */}
             <button
               onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
-              className="text-xs tracking-widest text-[#666] hover:text-[#C8A96E] transition-colors duration-200 uppercase font-light"
+              className={`text-xs tracking-widest hover:text-[#C8A96E] transition-colors duration-200 uppercase font-light ${scrolled ? 'text-[#666]' : 'text-[#B0ADA8]'}`}
             >
               {lang === 'es' ? 'EN' : 'ES'}
             </button>
@@ -96,7 +96,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-[#F0EDE8] p-1"
+            className={`md:hidden p-1 transition-colors duration-500 ${scrolled ? 'text-[#0A0A0A]' : 'text-[#F0EDE8]'}`}
             aria-label="Toggle menu"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -112,7 +112,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-[#0A0A0A] flex flex-col pt-20 px-8"
+            className="fixed inset-0 z-40 bg-white flex flex-col pt-20 px-8"
           >
             <nav className="flex flex-col gap-6 mt-8">
               {navLinks.map(({ key, href }, i) => (
@@ -125,7 +125,7 @@ export default function Navbar() {
                   <Link
                     href={href}
                     className={`text-3xl font-display font-light italic ${
-                      pathname === href ? 'text-[#C8A96E]' : 'text-[#F0EDE8]'
+                      pathname === href ? 'text-[#C8A96E]' : 'text-[#0A0A0A]'
                     }`}
                   >
                     {t(key)}
