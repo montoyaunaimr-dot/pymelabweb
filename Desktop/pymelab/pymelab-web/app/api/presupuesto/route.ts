@@ -1,8 +1,6 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 /* ─── Label maps ─────────────────────────────────────────────────── */
 const labels: Record<string, Record<string, string>> = {
   type: {
@@ -175,9 +173,7 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { formData } = body
 
-    // Debug: confirm env vars are loaded
-    console.log('[presupuesto] RESEND_API_KEY loaded:', !!process.env.RESEND_API_KEY)
-    console.log('[presupuesto] Sending to:', process.env.CONTACT_EMAIL)
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { data, error } = await resend.emails.send({
       from:    'PyMeLab <onboarding@resend.dev>',
