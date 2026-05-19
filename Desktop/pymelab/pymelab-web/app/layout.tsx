@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
 import Navbar from '@/components/Navbar'
@@ -53,6 +54,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${inter.variable}`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7VD52L30TB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7VD52L30TB');
+          `}
+        </Script>
+      </head>
       <body className="bg-black text-white antialiased overflow-x-hidden">
         <LanguageProvider>
           <Navbar />
