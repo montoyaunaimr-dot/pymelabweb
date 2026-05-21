@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Zap, Award, DollarSign, HeadphonesIcon, ArrowRight, Check } from 'lucide-react'
+import { Zap, Award, DollarSign, HeadphonesIcon, ArrowRight, Check, Palette, Code2, SearchCheck } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
 
@@ -43,19 +43,19 @@ const team = [
     name: 'Equipo de Diseño',
     role: 'Diseño & UX',
     desc: 'Expertos en crear experiencias visuales que convierten visitantes en clientes.',
-    initials: 'DI',
+    icon: Palette,
   },
   {
     name: 'Equipo de Desarrollo',
     role: 'Frontend & Backend',
     desc: 'Especialistas en código limpio, rápido y escalable con las últimas tecnologías.',
-    initials: 'DE',
+    icon: Code2,
   },
   {
     name: 'Equipo de SEO',
     role: 'SEO & Estrategia',
     desc: 'Optimizamos cada proyecto para que Google lo encuentre y lo ame.',
-    initials: 'SE',
+    icon: SearchCheck,
   },
 ]
 
@@ -164,9 +164,7 @@ export default function SobreNosotrosPage() {
               <AnimateIn key={member.name} delay={i * 0.1}>
                 <div className="bg-[#141414] border border-[#2A2A2A] p-6 text-center group hover:border-[#C8A96E]/30 transition-colors duration-300">
                   <div className="w-16 h-16 bg-[#1E1E1E] border border-[#2A2A2A] group-hover:border-[#C8A96E]/40 flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
-                    <span className="font-display text-xl font-light italic text-[#C8A96E]">
-                      {member.initials}
-                    </span>
+                    <member.icon size={24} className="text-[#C8A96E]" />
                   </div>
                   <h3 className="text-[#F0EDE8] font-medium mb-1">{member.name}</h3>
                   <p className="text-xs tracking-[0.15em] uppercase text-[#C8A96E] mb-3">{member.role}</p>
