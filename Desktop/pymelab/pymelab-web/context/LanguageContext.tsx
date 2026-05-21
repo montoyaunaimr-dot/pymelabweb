@@ -26,13 +26,13 @@ const translations: Record<Lang, Record<string, string>> = {
     'hero.h1a':          'Tu web profesional,',
     'hero.h1b':          'lista en días.',
     'hero.sub':          'Diseñamos y desarrollamos páginas web de alto impacto para pequeñas y medianas empresas. Rápido, asequible y sin complicaciones.',
-    'hero.cta1':         'Ver planes',
+    'hero.cta1':         'Quiero mi web',
     'hero.cta2':         'Ver portfolio',
 
     /* ── Stats ── */
-    'stats.webs':        'Webs entregadas',
+    'stats.from':        'Web profesional desde',
     'stats.clients':     'Clientes satisfechos',
-    'stats.days':        'Días de media',
+    'stats.days':        'Días de entrega',
     'stats.support':     'Soporte incluido',
 
     /* ── Services home ── */
@@ -183,9 +183,9 @@ const translations: Record<Lang, Record<string, string>> = {
     'hero.cta2':         'View portfolio',
 
     /* ── Stats ── */
-    'stats.webs':        'Websites delivered',
+    'stats.from':        'Professional web from',
     'stats.clients':     'Happy clients',
-    'stats.days':        'Average days',
+    'stats.days':        'Delivery days',
     'stats.support':     'Support included',
 
     /* ── Services home ── */

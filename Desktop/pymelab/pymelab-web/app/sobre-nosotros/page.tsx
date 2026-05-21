@@ -111,10 +111,10 @@ export default function SobreNosotrosPage() {
             {/* Stats visual */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { val: '6',    label: 'Proyectos completados' },
-                { val: '7',    label: 'Días de media' },
-                { val: '100%', label: 'Clientes satisfechos' },
-                { val: '2025', label: 'Año de fundación' },
+                { val: 'Desde 299€', label: 'Web profesional' },
+                { val: '7 días',    label: 'Tiempo de entrega' },
+                { val: '100%',      label: 'Clientes satisfechos' },
+                { val: '2025',      label: 'Año de fundación' },
               ].map(({ val, label }) => (
                 <div key={label} className="bg-[#141414] border border-[#2A2A2A] p-6">
                   <div className="font-display text-4xl font-light italic text-[#F0EDE8] mb-1">{val}</div>

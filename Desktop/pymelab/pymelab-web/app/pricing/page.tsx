@@ -44,7 +44,7 @@ const plans: Plan[] = [
     features: [
       { text: 'Creación y entrega de página web profesional', included: true },
       { text: 'Responsive (móvil + tablet + desktop)', included: true },
-      { text: 'Soporte prioritario', included: true },
+      { text: 'Soporte básico (email y WhatsApp)', included: true },
       { text: 'Revisiones y actualizaciones mensuales', included: false, addon: true },
       { text: 'Google Analytics + informe mensual', included: false, addon: true },
       { text: 'SEO avanzado', included: false },
@@ -156,7 +156,7 @@ const faqs = [
   },
   {
     q: '¿Trabajáis con todo tipo de negocios?',
-    a: 'Sí. Hemos trabajado con restaurantes, clínicas, bufetes, tiendas físicas, consultoras, academias y muchos más. Si tienes un negocio, nosotros te hacemos la web.',
+    a: 'Sí. Trabajamos con cualquier tipo de negocio: tiendas físicas, comercios online, profesionales independientes, servicios locales, restaurantes, clínicas y mucho más. Si tienes un negocio y necesitas presencia online, podemos ayudarte.',
   },
   {
     q: '¿Puedo empezar con el plan Básico y subir al Premium después?',
@@ -375,7 +375,7 @@ export default function PricingPage() {
                   {[
                     ['Creación y entrega de web profesional', '✓', '✓'],
                     ['Responsive (móvil, tablet, desktop)', '✓', '✓'],
-                    ['Soporte prioritario', '✓', '✓ 24/7'],
+                    ['Soporte', 'Email y WhatsApp', 'Prioritario 24/7'],
                     ['Páginas incluidas', 'Personalizadas', 'Ilimitadas'],
                     ['SEO', '—', 'Integrado y personalizado'],
                     ['Revisiones y actualizaciones', 'Extra (+50€/rev)', '1 semanal incluida'],

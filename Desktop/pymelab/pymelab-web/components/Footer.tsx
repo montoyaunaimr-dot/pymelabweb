@@ -39,24 +39,9 @@ export default function Footer() {
               Marketing Agency
             </span>
           </Link>
-          <p className="text-sm text-[#666] leading-relaxed mb-6">
+          <p className="text-sm text-[#666] leading-relaxed">
             {t('footer.tagline')}
           </p>
-          <div className="flex gap-3">
-            {[
-              { label: 'IG',  href: '#' },
-              { label: 'LI',  href: '#' },
-              { label: 'X',   href: '#' },
-            ].map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="w-9 h-9 border border-[#E5E2DC] flex items-center justify-center text-[#888] hover:border-[#C8A96E] hover:text-[#C8A96E] transition-all duration-200 font-light text-xs tracking-wider"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
         </div>
 
         {/* Services */}
