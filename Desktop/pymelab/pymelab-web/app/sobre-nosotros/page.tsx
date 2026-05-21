@@ -60,9 +60,10 @@ const team = [
 ]
 
 const timeline = [
-  { year: '2025', event: 'Fundación de PymeLab Agency', desc: 'Nacimos con la misión de democratizar el diseño web profesional para PYMEs.' },
-  { year: '2025', event: 'Primeros proyectos', desc: 'Lanzamos nuestras primeras webs y comprobamos que el modelo funciona.' },
-  { year: '2025', event: 'Crecimiento continuo', desc: 'Seguimos sumando clientes satisfechos y expandiendo nuestros servicios.' },
+  { year: 'Ene 2025', event: 'Nace PymeLab', desc: 'Fundamos la agencia con una misión clara: webs profesionales para PYMEs sin complicaciones ni precios desorbitados.' },
+  { year: 'Mar 2025', event: 'Primer proyecto real', desc: 'Lanzamos Siéntete Bella, nuestra primera tienda Shopify. El negocio pasó de vender solo a conocidos a tener canal propio 24/7.' },
+  { year: 'Abr 2025', event: 'Expansión al e-commerce', desc: 'Desarrollamos Solo Tuyo, ayudando a un negocio de TikTok a dar el salto a su propia tienda online en España.' },
+  { year: 'Hoy', event: 'Seguimos creciendo', desc: 'Cada mes sumamos nuevos clientes. Nuestro objetivo es ser la agencia web de referencia para PYMEs en España.' },
 ]
 
 export default function SobreNosotrosPage() {
@@ -110,9 +111,9 @@ export default function SobreNosotrosPage() {
             {/* Stats visual */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { val: '50+',  label: 'Webs entregadas' },
+                { val: '6',    label: 'Proyectos completados' },
                 { val: '7',    label: 'Días de media' },
-                { val: '98%',  label: 'Clientes satisfechos' },
+                { val: '100%', label: 'Clientes satisfechos' },
                 { val: '2025', label: 'Año de fundación' },
               ].map(({ val, label }) => (
                 <div key={label} className="bg-[#141414] border border-[#2A2A2A] p-6">

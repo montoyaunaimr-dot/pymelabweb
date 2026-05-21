@@ -45,8 +45,8 @@ function HeroWords({ text, cls }: { text: string; cls: string }) {
 
 /* ─── Data ────────────────────────────────────────────────────── */
 const statsData = [
-  { num: 50, suffix: '+',  labelKey: 'stats.webs'    },
-  { num: 98, suffix: '%',  labelKey: 'stats.clients' },
+  { num: 6,   suffix: '',   labelKey: 'stats.webs'    },
+  { num: 100, suffix: '%', labelKey: 'stats.clients' },
   { num: 7,  suffix: '',   labelKey: 'stats.days'    },
   { num: 24, suffix: '/7', labelKey: 'stats.support' },
 ]
