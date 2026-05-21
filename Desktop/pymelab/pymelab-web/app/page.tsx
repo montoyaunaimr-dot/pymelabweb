@@ -332,7 +332,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ PORTFOLIO — LIGHT, GSAP stagger ══════════════════════ */}
+      {/* ══ PORTFOLIO — LIGHT, screenshot previews ══════════════ */}
       <section ref={portfolioRef} className="py-24 px-6 bg-[#F5F3EF]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
@@ -363,13 +363,46 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="portfolio-card group block"
               >
+                {/* Browser frame with real screenshot */}
                 <div className="relative transition-transform duration-500 ease-out group-hover:-translate-y-2">
                   <div className="absolute -inset-2 bg-[#B8893E]/0 group-hover:bg-[#B8893E]/6 blur-2xl transition-all duration-500 pointer-events-none" />
-                  <BrowserFrame url={url} title={title}>
-                    {mockup === 'sientetebella' ? <SienteteBellaMockup /> : <SoloTuyoMockup />}
-                  </BrowserFrame>
+                  {/* Browser chrome */}
+                  <div className="rounded-lg overflow-hidden shadow-xl border border-[#D8D5CF]">
+                    {/* Top bar */}
+                    <div className="bg-[#E8E5E0] px-3 py-2.5 flex items-center gap-2.5">
+                      <div className="flex gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                      </div>
+                      <div className="flex-1 bg-white/70 rounded px-3 py-1 flex items-center gap-1.5">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="text-[#999] shrink-0">
+                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
+                        <span className="text-[10px] text-[#888] truncate">{url}</span>
+                      </div>
+                      <ExternalLink size={11} className="text-[#999] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    {/* Screenshot */}
+                    <div className="relative overflow-hidden bg-white" style={{ aspectRatio: '16/9' }}>
+                      <img
+                        src={mockup === 'sientetebella' ? '/preview-sientetebella.jpg' : '/preview-solotuyo.jpg'}
+                        alt={`Preview de ${title}`}
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
+                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 flex items-center gap-2 bg-white/90 px-4 py-2 text-xs font-medium text-[#0A0A0A]">
+                          <ExternalLink size={12} />
+                          Ver web
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
+                {/* Info below */}
                 <div className="mt-4 flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-[#0A0A0A] font-medium group-hover:text-[#B8893E] transition-colors duration-200">
@@ -388,13 +421,6 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-
-                {href.startsWith('http') && (
-                  <div className="mt-2 flex items-center gap-1.5 text-[11px] text-[#AAA] group-hover:text-[#B8893E] transition-colors duration-200">
-                    <ExternalLink size={10} />
-                    {url}
-                  </div>
-                )}
               </a>
             ))}
           </div>
