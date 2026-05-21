@@ -26,8 +26,18 @@ export default function ContactoPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSending(true)
-    await new Promise(r => setTimeout(r, 1000))
-    router.push('/gracias')
+    try {
+      const res = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Error al enviar')
+      router.push('/gracias')
+    } catch {
+      setSending(false)
+      alert('Hubo un problema al enviar el mensaje. Por favor, escríbenos directamente a contacto@pymelabagency.com')
+    }
   }
 
   const info = [
