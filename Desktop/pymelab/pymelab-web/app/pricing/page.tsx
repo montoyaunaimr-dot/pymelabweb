@@ -127,6 +127,21 @@ const addons = [
       'Entrega del informe en los primeros días de cada mes',
     ],
   },
+  {
+    name: 'Google My Business',
+    price: '79€',
+    period: 'pago único',
+    plan: 'Todos los planes',
+    desc: 'Creamos y optimizamos tu ficha de Google My Business para que aparezcas en Google Maps cuando alguien busque tu negocio. Configuración completa en 24 horas.',
+    bullets: [
+      'Creación y verificación de la ficha',
+      'Categorías y palabras clave para SEO local',
+      'Descripción optimizada del negocio',
+      'Subida y organización de fotos',
+      'Configuración de horario, servicios y mensajes',
+      'Entregado y activo en 24 horas',
+    ],
+  },
 ]
 
 const faqs = [

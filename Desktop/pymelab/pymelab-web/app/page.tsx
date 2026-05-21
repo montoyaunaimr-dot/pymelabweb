@@ -132,14 +132,19 @@ export default function HomePage() {
     gsap.utils.toArray<HTMLElement>('.stat-num').forEach((el) => {
       const target = parseFloat(el.dataset.target ?? '0')
       const proxy  = { val: 0 }
+      // Initialise to target so server-rendered text is never "0"
+      el.textContent = Math.round(target).toString()
+      proxy.val = target
       ScrollTrigger.create({
         trigger: el,
-        start: 'top 82%',
+        start: 'top bottom',
         once:  true,
         onEnter() {
+          proxy.val = 0
+          el.textContent = '0'
           gsap.to(proxy, {
             val: target,
-            duration: 2.2,
+            duration: 2,
             ease: 'power2.out',
             onUpdate() { el.textContent = Math.round(proxy.val).toString() },
           })

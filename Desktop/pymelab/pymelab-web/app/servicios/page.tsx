@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
   Globe, Search, ShoppingCart, Wrench, Palette, BarChart3,
-  ArrowRight, Check,
+  ArrowRight, Check, MapPin,
 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
@@ -120,6 +120,23 @@ const services = [
       'Seguimiento y ajuste continuo',
     ],
     cta: 'Reservar consultoría',
+  },
+  {
+    id: 'google-my-business',
+    icon: MapPin,
+    num: '07',
+    title: 'Google My Business',
+    short: 'Aparece en Google Maps. Hoy.',
+    desc: 'Cuando alguien busca tu tipo de negocio en Google, lo primero que ve es el mapa. Si no tienes ficha o la tienes mal configurada, eres invisible para esos clientes. Nosotros lo solucionamos en 24 horas.',
+    features: [
+      'Creación y verificación de la ficha',
+      'Categorías y palabras clave optimizadas',
+      'Descripción del negocio con SEO local',
+      'Subida y organización de fotos',
+      'Configuración de horario y servicios',
+      'Activación de mensajes y reseñas',
+    ],
+    cta: 'Activar mi ficha',
   },
 ]
 
