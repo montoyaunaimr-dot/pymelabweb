@@ -83,7 +83,7 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { data: resendData, error } = await resend.emails.send({
-      from:    'PyMeLab <onboarding@resend.dev>',
+      from:    'PyMeLab <contacto@pymelabagency.com>',
       to:      process.env.CONTACT_EMAIL!,
       replyTo: email,
       subject: `✉️ Nuevo mensaje — ${name}${company ? ` (${company})` : ''}`,
