@@ -95,6 +95,50 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error }, { status: 500 })
     }
 
+    // Confirmation email to client
+    await resend.emails.send({
+      from:    'PyMeLab <contacto@pymelabagency.com>',
+      to:      email,
+      subject: `Hemos recibido tu mensaje, ${name.split(' ')[0]}`,
+      html: `
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0a0a0a;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+        <tr>
+          <td style="padding:0 0 32px">
+            <p style="margin:0 0 8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#c8a96e">PyMeLab</p>
+            <h1 style="margin:0;font-size:28px;font-weight:300;font-style:italic;color:#f0ede8;line-height:1.2">
+              Gracias,<br><span style="color:#c8a96e;font-weight:700;font-style:normal">${name.split(' ')[0]}.</span>
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#141414;border:1px solid #2a2a2a;padding:24px">
+            <p style="margin:0 0 16px;font-size:14px;color:#b0ada8;line-height:1.7">
+              Hemos recibido tu mensaje y te responderemos en menos de <strong style="color:#f0ede8">24 horas</strong>.
+            </p>
+            <p style="margin:0;font-size:14px;color:#b0ada8;line-height:1.7">
+              Si tienes cualquier duda urgente, puedes escribirnos directamente a
+              <a href="mailto:contacto@pymelabagency.com" style="color:#c8a96e;text-decoration:none">contacto@pymelabagency.com</a>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:32px 0 0;text-align:center">
+            <p style="margin:0;font-size:11px;color:#333">PyMeLab · <a href="https://pymelabagency.com" style="color:#c8a96e;text-decoration:none">pymelabagency.com</a></p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+    })
+
     console.log('[contacto] Email sent OK, id:', resendData?.id)
     return NextResponse.json({ ok: true })
   } catch (err) {
