@@ -70,15 +70,15 @@ const translations: Record<Lang, Record<string, string>> = {
     'pricing.get':       'Empezar ahora',
 
     /* ── Plan Basic ── */
-    'plan.basic.name':   'Starter',
+    'plan.basic.name':   'Básico',
     'plan.basic.price':  '299',
     'plan.basic.desc':   'La solución perfecta para lanzar tu presencia online con una web profesional.',
     'plan.basic.f1':     'Creación y entrega de página web profesional',
     'plan.basic.f2':     'Responsive (móvil + tablet + desktop)',
     'plan.basic.f3':     'Soporte básico (email y WhatsApp)',
-    'plan.basic.f4':     'Formulario de contacto incluido',
-    'plan.basic.f5':     'SEO básico incluido',
-    'plan.basic.f6':     'Revisión mensual',
+    'plan.basic.f4':     'Revisiones y actualizaciones mensuales',
+    'plan.basic.f5':     'Google Analytics + informe mensual',
+    'plan.basic.f6':     'Revisiones y actualizaciones mensuales',
     'plan.basic.f7':     'Soporte por email',
     'plan.basic.f8':     'Entrega en 7-10 días laborables',
 
@@ -223,15 +223,15 @@ const translations: Record<Lang, Record<string, string>> = {
     'pricing.get':       'Get started',
 
     /* ── Plan Basic ── */
-    'plan.basic.name':   'Starter',
+    'plan.basic.name':   'Basic',
     'plan.basic.price':  '299',
     'plan.basic.desc':   'The perfect solution to launch your online presence with a professional website.',
     'plan.basic.f1':     'Professional website creation & delivery',
     'plan.basic.f2':     'Responsive (mobile + tablet + desktop)',
     'plan.basic.f3':     'Basic support (email & WhatsApp)',
-    'plan.basic.f4':     'Contact form included',
-    'plan.basic.f5':     'Basic SEO included',
-    'plan.basic.f6':     'Monthly revision',
+    'plan.basic.f4':     'Monthly revisions & updates',
+    'plan.basic.f5':     'Google Analytics + monthly report',
+    'plan.basic.f6':     'Monthly revisions & updates',
     'plan.basic.f7':     'Email support',
     'plan.basic.f8':     'Delivery in 7-10 business days',
 

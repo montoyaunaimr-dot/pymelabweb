@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import {
   ArrowRight, Globe, Search, ShoppingCart, Wrench,
-  Palette, BarChart3, Check, ExternalLink, ChevronRight,
+  Palette, BarChart3, Check, ExternalLink, ChevronRight, Sparkles,
 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import BrowserFrame from '@/components/BrowserFrame'
@@ -454,9 +454,25 @@ export default function HomePage() {
                 <div className="text-[10px] text-[#333] mb-5">{t('pricing.once')}</div>
                 <p className="text-sm text-[#555] mb-6 leading-relaxed">{t('plan.basic.desc')}</p>
                 <ul className="space-y-2 mb-8">
-                  {['plan.basic.f1','plan.basic.f2','plan.basic.f3','plan.basic.f4','plan.basic.f5','plan.basic.f8'].map(k => (
-                    <li key={k} className="flex items-center gap-2.5 text-sm text-[#666]">
-                      <Check size={12} className="text-[#C8A96E] shrink-0" />{t(k)}
+                  {([
+                    { k: 'plan.basic.f1', type: 'check' },
+                    { k: 'plan.basic.f2', type: 'check' },
+                    { k: 'plan.basic.f3', type: 'check' },
+                    { k: 'plan.basic.f4', type: 'addon' },
+                    { k: 'plan.basic.f5', type: 'addon' },
+                    { k: 'plan.basic.f8', type: 'check' },
+                  ] as { k: string; type: 'check' | 'addon' }[]).map(({ k, type }) => (
+                    <li key={k} className={`flex items-center gap-2.5 text-sm ${type === 'check' ? 'text-[#666]' : 'text-[#444]'}`}>
+                      {type === 'check'
+                        ? <Check size={12} className="text-[#C8A96E] shrink-0" />
+                        : <Sparkles size={12} className="text-[#C8A96E]/50 shrink-0" />
+                      }
+                      {t(k)}
+                      {type === 'addon' && (
+                        <span className="ml-1 text-[9px] tracking-[0.1em] uppercase text-[#C8A96E]/60 border border-[#C8A96E]/25 px-1.5 py-0.5 leading-none">
+                          extra
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ul>
