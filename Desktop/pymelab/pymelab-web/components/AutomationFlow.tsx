@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Bot, Mail, CheckCircle2, Calendar } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 /* ── Brand icons ─────────────────────────────────── */
 function WhatsAppIcon() {
@@ -25,7 +26,8 @@ function HubSpotIcon() {
 }
 
 /* ── Animated flowing dot along a path ─────────────── */
-function FlowingDot({ path, delay = 0, duration = 1.8 }: { path: string; delay?: number; duration?: number }) {
+function FlowingDot({ path, delay = 0, duration = 1.8, animate }: { path: string; delay?: number; duration?: number; animate?: boolean }) {
+  if (!animate) return null
   return (
     <motion.circle r="2.5" fill="#C8A96E" opacity={0.9}>
       <animateMotion
@@ -100,6 +102,13 @@ function FlowCard({
 
 /* ─────────────────────────────────────────────────── */
 export default function AutomationFlow() {
+  const [showDots, setShowDots] = useState(false)
+
+  useEffect(() => {
+    // Only show animated dots on desktop — avoids jank on mobile
+    setShowDots(window.innerWidth >= 768)
+  }, [])
+
   // All coordinates are within a 340×395 canvas
   // Main card dims: w=198 h=54  → center x=170
   // Sub card dims: w=108 h=70   → centers at x=54, 170, 286
@@ -154,7 +163,7 @@ export default function AutomationFlow() {
 
         {/* 1. WhatsApp → Bot */}
         <line x1={C} y1={p1b} x2={C} y2={p2t} stroke="url(#lineGrad)" strokeWidth="1.5"/>
-        <FlowingDot path={`M ${C} ${p1b} L ${C} ${p2t}`} delay={0} duration={1.6} />
+        <FlowingDot path={`M ${C} ${p1b} L ${C} ${p2t}`} delay={0} duration={1.6} animate={showDots} />
 
         {/* 2. Bot → junction → 3 branches */}
         <line x1={C}   y1={p2b} x2={C}   y2={jy} stroke="#C8A96E" strokeWidth="1.5" strokeOpacity="0.4"/>
@@ -169,9 +178,9 @@ export default function AutomationFlow() {
         <circle cx={cx3} cy={jy} r="2.5" fill="#C8A96E" opacity="0.35"/>
 
         {/* Animated dots on branches */}
-        <FlowingDot path={`M ${cx1} ${jy} L ${cx1} ${p3t}`} delay={0.4} duration={1.2}/>
-        <FlowingDot path={`M ${cx2} ${jy} L ${cx2} ${p3t}`} delay={0.2} duration={1.2}/>
-        <FlowingDot path={`M ${cx3} ${jy} L ${cx3} ${p3t}`} delay={0.6} duration={1.2}/>
+        <FlowingDot path={`M ${cx1} ${jy} L ${cx1} ${p3t}`} delay={0.4} duration={1.2} animate={showDots}/>
+        <FlowingDot path={`M ${cx2} ${jy} L ${cx2} ${p3t}`} delay={0.2} duration={1.2} animate={showDots}/>
+        <FlowingDot path={`M ${cx3} ${jy} L ${cx3} ${p3t}`} delay={0.6} duration={1.2} animate={showDots}/>
 
         {/* 3. Sub cards → merge → Calendar */}
         <line x1={cx1} y1={p3b} x2={cx1} y2={my} stroke="#C8A96E" strokeWidth="1.5" strokeOpacity="0.25"/>
@@ -184,7 +193,7 @@ export default function AutomationFlow() {
         <circle cx={C} cy={my} r="3" fill="#C8A96E" opacity="0.5"/>
 
         {/* Animated dot: merge → Calendar */}
-        <FlowingDot path={`M ${cx2} ${p3b} L ${cx2} ${p4t}`} delay={1.1} duration={1.8}/>
+        <FlowingDot path={`M ${cx2} ${p3b} L ${cx2} ${p4t}`} delay={1.1} duration={1.8} animate={showDots}/>
       </svg>
 
       {/* ── Card 1: WhatsApp ── */}

@@ -23,7 +23,7 @@ export default function AnimateIn({
   once = true,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once, margin: '-40px 0px' })
+  const inView = useInView(ref, { once, margin: '0px 0px -10% 0px' })
 
   return (
     <motion.div

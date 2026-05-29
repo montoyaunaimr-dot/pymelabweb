@@ -138,25 +138,30 @@ export default function HomePage() {
   const caseRef         = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
+    const isMobile = window.innerWidth < 768
 
     /* ── Hero timeline ── */
     const tl = gsap.timeline({ delay: 0.05, defaults: { ease: 'power4.out' } })
-    tl.from('.hero-tag',  { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
     tl.from('.hw1',       { yPercent: 115, duration: 1, stagger: 0.06 }, 0.3)
     tl.from('.hw2',       { yPercent: 115, duration: 1 }, 0.48)
-    tl.from('.hero-sub',  { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
-    tl.from('.hero-ctas', { y: 20, duration: 0.7, ease: 'power2.out' }, 1.0)
-    tl.from('.hero-orb',  { opacity: 0, scale: 0.85, duration: 1.2, ease: 'power3.out' }, 0.4)
+    if (!isMobile) {
+      tl.from('.hero-tag',  { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
+      tl.from('.hero-sub',  { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
+      tl.from('.hero-ctas', { y: 20, opacity: 0, duration: 0.7, ease: 'power2.out' }, 1.0)
+      tl.from('.hero-orb',  { opacity: 0, scale: 0.92, duration: 1.2, ease: 'power3.out' }, 0.4)
+    }
     tl.from('.hero-scroll', { opacity: 0, duration: 0.8 }, 1.25)
     tl.add(() => {
       gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
     })
 
-    /* hero parallax */
-    gsap.to(heroContentRef.current, {
-      yPercent: 18, opacity: 0, ease: 'none',
-      scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
-    })
+    /* hero parallax — solo desktop, sin fade a negro */
+    if (!isMobile) {
+      gsap.to(heroContentRef.current, {
+        yPercent: 14, ease: 'none',
+        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
+      })
+    }
 
     /* ── Stats counter ── */
     gsap.utils.toArray<HTMLElement>('.stat-num').forEach((el) => {
@@ -164,7 +169,7 @@ export default function HomePage() {
       const proxy = { val: target }
       el.textContent = Math.round(target).toString()
       ScrollTrigger.create({
-        trigger: el, start: 'top bottom', once: true,
+        trigger: el, start: 'top 95%', once: true,
         onEnter() {
           proxy.val = 0; el.textContent = '0'
           gsap.to(proxy, {
@@ -175,23 +180,23 @@ export default function HomePage() {
       })
     })
 
-    /* ── Services stagger ── */
-    gsap.from('.service-card', {
-      opacity: 0, y: 28, duration: 0.65, stagger: 0.08, ease: 'power2.out',
-      scrollTrigger: { trigger: servicesGridRef.current, start: 'top 72%', once: true },
-    })
+    /* ── Scroll animations — solo desktop para evitar elementos invisibles en mobile ── */
+    if (!isMobile) {
+      gsap.from('.service-card', {
+        opacity: 0, y: 28, duration: 0.65, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: servicesGridRef.current, start: 'top 80%', once: true },
+      })
 
-    /* ── How it works ── */
-    gsap.from('.howit-card', {
-      opacity: 0, y: 32, duration: 0.7, stagger: 0.14, ease: 'power2.out',
-      scrollTrigger: { trigger: howItRef.current, start: 'top 70%', once: true },
-    })
+      gsap.from('.howit-card', {
+        opacity: 0, y: 32, duration: 0.7, stagger: 0.14, ease: 'power2.out',
+        scrollTrigger: { trigger: howItRef.current, start: 'top 80%', once: true },
+      })
 
-    /* ── Case flow ── */
-    gsap.from('.case-step', {
-      opacity: 0, scale: 0.88, duration: 0.5, stagger: 0.12, ease: 'back.out(1.4)',
-      scrollTrigger: { trigger: caseRef.current, start: 'top 68%', once: true },
-    })
+      gsap.from('.case-step', {
+        opacity: 0, scale: 0.88, duration: 0.5, stagger: 0.12, ease: 'back.out(1.4)',
+        scrollTrigger: { trigger: caseRef.current, start: 'top 80%', once: true },
+      })
+    }
 
   }, { scope: containerRef })
 

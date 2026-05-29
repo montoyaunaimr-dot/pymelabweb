@@ -2,13 +2,11 @@
 
 import Link from 'next/link'
 import { useRef, useState } from 'react'
-import dynamic from 'next/dynamic'
 import { motion, useInView } from 'framer-motion'
 import { Zap, Award, DollarSign, HeadphonesIcon, ArrowRight, Check, Bot, Cpu, Link2, BarChart3 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
-
-const ThreeOrb = dynamic(() => import('@/components/ThreeOrb'), { ssr: false })
+import AutomationFlow from '@/components/AutomationFlow'
 
 const ORDINALS = ['01', '02', '03', '04']
 
@@ -256,7 +254,9 @@ export default function SobreNosotrosPage() {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-[320px] h-[320px] rounded-full bg-[#C8A96E]/[0.04] blur-[80px]" />
             </div>
-            <ThreeOrb />
+            <div className="flex items-center justify-center h-full">
+              <AutomationFlow />
+            </div>
           </div>
         </div>
       </section>
