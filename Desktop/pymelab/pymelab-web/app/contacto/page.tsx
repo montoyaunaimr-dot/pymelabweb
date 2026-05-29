@@ -27,7 +27,7 @@ export default function ContactoPage() {
     e.preventDefault()
     setSending(true)
     try {
-      const res = await fetch('/api/contacto', {
+      const res = await fetch('https://unaimontoya.app.n8n.cloud/webhook/pymelab-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
-  Globe, Search, ShoppingCart, Wrench, Palette, BarChart3,
-  ArrowRight, Check, MapPin,
+  MessageCircle, Mail, Target, Link2, BarChart3, Globe,
+  ArrowRight, Check, Zap, Clock, Shield,
 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
@@ -20,123 +20,112 @@ function Tag({ children }: { children: React.ReactNode }) {
 
 const services = [
   {
-    id: 'diseno-web',
-    icon: Globe,
+    id: 'whatsapp',
+    icon: MessageCircle,
     num: '01',
-    title: 'Diseño Web',
-    short: 'Tu imagen online, rediseñada.',
-    desc: 'Creamos webs modernas, rápidas y diseñadas para convertir. Cada proyecto es único: adaptamos el diseño a tu marca, tu sector y tu audiencia. Nada de plantillas genéricas.',
+    title: 'Bot de WhatsApp',
+    short: 'Atiende, reserva y vende mientras duermes.',
+    desc: 'Implementamos un bot con IA que entiende lenguaje natural. Gestiona reservas, responde preguntas frecuentes, cualifica leads y cierra ventas de forma completamente automática. Tu negocio activo 24/7 sin dedicar ni un minuto.',
+    features: [
+      'Respuestas en lenguaje natural con IA (OpenAI)',
+      'Gestión automática de reservas y citas',
+      'Detección de intención: reservar, cancelar, cambiar',
+      'Integración con Google Sheets o CRM',
+      'Confirmación automática por email y WhatsApp',
+      'Escalado a humano cuando es necesario',
+    ],
+    useCases: ['Clínicas y dentistas', 'Restaurantes', 'Peluquerías', 'Servicios profesionales'],
+    color: '#25D366',
+  },
+  {
+    id: 'email',
+    icon: Mail,
+    num: '02',
+    title: 'Email Automation',
+    short: 'El email perfecto, en el momento perfecto.',
+    desc: 'Diseñamos y automatizamos secuencias de email que se disparan en el momento exacto. Bienvenidas, seguimientos, recordatorios, reactivaciones. Cada email llega cuando más impacto tiene.',
+    features: [
+      'Secuencias de bienvenida automatizadas',
+      'Follow-ups después de formulario o consulta',
+      'Recordatorios de cita (24h antes)',
+      'Emails de reactivación para clientes inactivos',
+      'Confirmaciones y notificaciones en tiempo real',
+      'Templates profesionales con tu marca',
+    ],
+    useCases: ['Lead nurturing', 'Post-venta', 'Recordatorios', 'Reactivación'],
+    color: '#C8A96E',
+  },
+  {
+    id: 'leads',
+    icon: Target,
+    num: '03',
+    title: 'Captura de Leads',
+    short: 'Cada contacto, directo a tu pipeline.',
+    desc: 'Conectamos tu formulario web, landing page o chatbot directamente con tus herramientas de gestión. Sin copiar datos a mano, sin perder leads por el camino. Cada oportunidad capturada y procesada al instante.',
+    features: [
+      'Formularios conectados a n8n/CRM',
+      'Email de notificación inmediata al equipo',
+      'Email de confirmación automático al lead',
+      'Registro en Google Sheets o base de datos',
+      'Calificación automática por IA',
+      'Asignación automática a comercial',
+    ],
+    useCases: ['Agencias', 'Inmobiliarias', 'Consultoras', 'E-commerce'],
+    color: '#FF6B6B',
+  },
+  {
+    id: 'integraciones',
+    icon: Link2,
+    num: '04',
+    title: 'Integraciones',
+    short: 'Todas tus herramientas, hablando entre sí.',
+    desc: 'Conectamos cualquier combinación de plataformas: tu CRM con tu calendario, tu tienda con tu facturación, tu formulario con tu WhatsApp. Si existe una API, lo conectamos.',
+    features: [
+      'Google Sheets / Google Calendar',
+      'HubSpot / Salesforce / Pipedrive',
+      'Shopify / WooCommerce',
+      'Notion / Airtable',
+      'Slack / Teams (notificaciones)',
+      'Cualquier plataforma con API',
+    ],
+    useCases: ['Sincronización de datos', 'Notificaciones', 'Flujos multi-sistema'],
+    color: '#4FC3F7',
+  },
+  {
+    id: 'informes',
+    icon: BarChart3,
+    num: '05',
+    title: 'Informes Automáticos',
+    short: 'Tus KPIs, siempre actualizados.',
+    desc: 'Configuramos dashboards y reportes que se generan solos. Ventas de la semana, leads captados, conversiones, citas — todo en un panel que siempre está al día sin que toques nada.',
+    features: [
+      'Dashboard en Google Sheets o Looker Studio',
+      'Reportes semanales/mensuales automáticos',
+      'Alertas cuando algo supera umbrales',
+      'Consolidación de datos de múltiples fuentes',
+      'KPIs personalizados para tu negocio',
+      'Envío automático por email al equipo',
+    ],
+    useCases: ['Dirección', 'Equipos de ventas', 'Marketing', 'Operaciones'],
+    color: '#A78BFA',
+  },
+  {
+    id: 'web',
+    icon: Globe,
+    num: '06',
+    title: 'Web Profesional',
+    short: 'Tu escaparate digital, conectado a todo.',
+    desc: 'Diseñamos landing pages y webs que no solo convierten, sino que están conectadas a tus automatizaciones desde el primer día. Cada formulario captura leads. Cada visita es una oportunidad.',
     features: [
       'Diseño 100% personalizado',
-      'Responsive (móvil, tablet, desktop)',
-      'Velocidad de carga optimizada',
-      'CMS integrado para gestión fácil',
-      'Animaciones y micro-interacciones',
-      'Entrega en 5-7 días',
+      'Formulario conectado a n8n (leads automáticos)',
+      'Optimizado para SEO y conversión',
+      'Responsive (móvil + tablet + desktop)',
+      'Velocidad de carga < 2 segundos',
+      'Entrega en 7-10 días laborables',
     ],
-    cta: 'Solicitar diseño web',
-  },
-  {
-    id: 'seo',
-    icon: Search,
-    num: '02',
-    title: 'SEO & Posicionamiento',
-    short: 'Aparecer en Google no es suerte.',
-    desc: 'Optimizamos tu web para que Google la ame. Desde la arquitectura técnica hasta el contenido, aplicamos las mejores prácticas de SEO para posicionarte por encima de tu competencia.',
-    features: [
-      'Auditoría SEO completa',
-      'Optimización técnica on-page',
-      'Investigación de palabras clave',
-      'Optimización de velocidad (Core Web Vitals)',
-      'Google Analytics 4 + Search Console',
-      'Informes mensuales de rendimiento',
-    ],
-    cta: 'Mejorar mi SEO',
-  },
-  {
-    id: 'ecommerce',
-    icon: ShoppingCart,
-    num: '03',
-    title: 'Tienda Online',
-    short: 'Vende mientras duermes.',
-    desc: 'Creamos tiendas online completas, seguras y fáciles de gestionar. Desde catálogos de producto hasta pasarelas de pago, nos encargamos de que tu e-commerce esté listo para vender desde el primer día.',
-    features: [
-      'Catálogo de productos ilimitado',
-      'Pasarela de pago segura (Stripe / PayPal)',
-      'Gestión de stock y pedidos',
-      'Diseño optimizado para conversión',
-      'Integración con facturación',
-      'Panel de administración intuitivo',
-    ],
-    cta: 'Crear mi tienda',
-  },
-  {
-    id: 'mantenimiento',
-    icon: Wrench,
-    num: '04',
-    title: 'Mantenimiento',
-    short: 'Tu web, siempre al 100%.',
-    desc: 'Una web sin mantenimiento es una web que falla. Nos encargamos de que tu sitio esté siempre actualizado, seguro, sin errores y con copias de seguridad diarias.',
-    features: [
-      'Actualizaciones de seguridad',
-      'Backups automáticos diarios',
-      'Monitorización 24/7',
-      'Corrección de errores y bugs',
-      'Actualizaciones de contenido',
-      'Soporte técnico prioritario',
-    ],
-    cta: 'Contratar mantenimiento',
-  },
-  {
-    id: 'branding',
-    icon: Palette,
-    num: '05',
-    title: 'Branding Digital',
-    short: 'Tu marca, coherente en todos lados.',
-    desc: 'La identidad visual de tu negocio va más allá del logo. Creamos guías de estilo, paletas de color, tipografías y sistemas de diseño que hacen que tu marca sea reconocible y profesional en cualquier canal.',
-    features: [
-      'Diseño o rediseño de logotipo',
-      'Paleta de colores y tipografías',
-      'Guía de estilo de marca',
-      'Plantillas para redes sociales',
-      'Adaptación web y digital',
-      'Archivos en todos los formatos',
-    ],
-    cta: 'Crear mi identidad',
-  },
-  {
-    id: 'consultoria',
-    icon: BarChart3,
-    num: '06',
-    title: 'Consultoría Digital',
-    short: 'Estrategia antes que acción.',
-    desc: 'Antes de invertir en digital, necesitas un plan. Analizamos tu negocio, tu competencia y tu mercado para diseñar una hoja de ruta digital que maximice tu retorno.',
-    features: [
-      'Análisis de presencia digital actual',
-      'Estudio de la competencia',
-      'Definición de buyer persona',
-      'Plan de acción personalizado',
-      'Priorización de canales y acciones',
-      'Seguimiento y ajuste continuo',
-    ],
-    cta: 'Reservar consultoría',
-  },
-  {
-    id: 'google-my-business',
-    icon: MapPin,
-    num: '07',
-    title: 'Google My Business',
-    short: 'Aparece en Google Maps. Hoy.',
-    desc: 'Cuando alguien busca tu tipo de negocio en Google, lo primero que ve es el mapa. Si no tienes ficha o la tienes mal configurada, eres invisible para esos clientes. Nosotros lo solucionamos en 24 horas.',
-    features: [
-      'Creación y verificación de la ficha',
-      'Categorías y palabras clave optimizadas',
-      'Descripción del negocio con SEO local',
-      'Subida y organización de fotos',
-      'Configuración de horario y servicios',
-      'Activación de mensajes y reseñas',
-    ],
-    cta: 'Activar mi ficha',
+    useCases: ['PYMEs', 'Profesionales', 'E-commerce', 'Servicios locales'],
+    color: '#C8A96E',
   },
 ]
 
@@ -144,110 +133,132 @@ export default function ServiciosPage() {
   const { t } = useLang()
 
   return (
-    <>
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-[#0A0A0A] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#C8A96E]/4 blur-[120px] pointer-events-none" />
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <Tag>Servicios</Tag>
+    <div className="bg-[#0A0A0A] min-h-screen">
+
+      {/* ── Hero ── */}
+      <section className="pt-36 pb-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.022] pointer-events-none" style={{
+          backgroundImage: `linear-gradient(rgba(200,169,110,1) 1px,transparent 1px),linear-gradient(90deg,rgba(200,169,110,1) 1px,transparent 1px)`,
+          backgroundSize: '80px 80px',
+        }} />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#C8A96E]/[0.04] blur-[140px] pointer-events-none" />
+        <div className="max-w-5xl mx-auto relative">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-6">
+            <Tag>{t('services.tag')}</Tag>
           </motion.div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden mb-6">
             <motion.h1
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-light italic text-[#F0EDE8] leading-[0.92] mb-6"
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-light italic text-[#F0EDE8] leading-[0.92]"
+              initial={{ y: '100%' }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             >
-              Lo que hacemos,<br />
-              <span className="gold-gradient not-italic font-bold">lo hacemos bien.</span>
+              {t('services.h2')}
             </motion.h1>
           </div>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-[#666] text-lg max-w-2xl font-light"
-          >
-            Servicios digitales pensados para PYMEs que quieren crecer online sin gastar de más.
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-[#555] text-lg font-light max-w-2xl">
+            {t('services.sub')}
           </motion.p>
+
+          {/* Quick stats */}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-12 flex flex-wrap gap-6">
+            {[
+              { icon: Zap,    text: 'Implementación en 48-72h' },
+              { icon: Clock,  text: 'Activo 24/7' },
+              { icon: Shield, text: 'Sin permanencia' },
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} className="flex items-center gap-2 text-sm text-[#444]">
+                <Icon size={14} className="text-[#C8A96E]" />
+                {text}
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Services list */}
-      <section className="py-8 px-6 bg-[#0A0A0A]">
-        <div className="max-w-5xl mx-auto space-y-0">
-          {services.map((service, i) => (
-            <AnimateIn key={service.id} delay={i * 0.05}>
+      {/* ── Services ── */}
+      <section className="pb-32 px-6">
+        <div className="max-w-7xl mx-auto space-y-2">
+          {services.map(({ id, icon: Icon, num, title, short, desc, features, useCases, color }, i) => (
+            <AnimateIn key={id} delay={i * 0.05}>
               <div
-                id={service.id}
-                className="group border-t border-[#1E1E1E] py-14 grid grid-cols-1 lg:grid-cols-2 gap-10 hover:border-[#C8A96E]/30 transition-colors duration-300"
+                id={id}
+                className="group border border-[#141414] bg-[#0D0D0D] p-8 md:p-12 hover:border-[#C8A96E]/20 transition-all duration-500"
               >
-                {/* Left */}
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-10 h-10 border border-[#2A2A2A] group-hover:border-[#C8A96E] flex items-center justify-center transition-colors duration-300">
-                      <service.icon size={18} className="text-[#C8A96E]" />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                  {/* Left */}
+                  <div>
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="w-12 h-12 border border-[#1E1E1E] flex items-center justify-center shrink-0 group-hover:border-[#C8A96E]/40 transition-colors duration-300">
+                        <Icon size={20} style={{ color }} />
+                      </div>
+                      <div>
+                        <div className="text-[10px] tracking-[0.2em] uppercase text-[#333] mb-1">{num}</div>
+                        <h2 className="text-2xl font-medium text-[#F0EDE8]">{title}</h2>
+                      </div>
                     </div>
-                    <span className="font-display text-sm italic text-[#444]">{service.num}</span>
+                    <p className="text-[#C8A96E] text-sm font-light mb-4 italic">{short}</p>
+                    <p className="text-[#555] text-sm leading-relaxed mb-6">{desc}</p>
+
+                    {/* Use cases */}
+                    <div className="flex flex-wrap gap-2">
+                      {useCases.map(uc => (
+                        <span key={uc} className="text-[10px] tracking-[0.1em] uppercase text-[#444] border border-[#1E1E1E] px-2.5 py-1">
+                          {uc}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <h2 className="font-display text-3xl md:text-4xl font-light italic text-[#F0EDE8] mb-2">
-                    {service.title}
-                  </h2>
-                  <p className="text-[#C8A96E] text-sm mb-4">{service.short}</p>
-                  <p className="text-[#666] text-sm leading-relaxed">{service.desc}</p>
+
+                  {/* Right — features */}
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] uppercase text-[#333] mb-4">Qué incluye</div>
+                    <ul className="space-y-3">
+                      {features.map(f => (
+                        <li key={f} className="flex items-start gap-3 text-sm text-[#555]">
+                          <Check size={13} className="text-[#C8A96E] shrink-0 mt-0.5" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contacto"
+                      className="mt-8 inline-flex items-center gap-2 text-sm text-[#C8A96E] hover:text-[#E2C99A] transition-colors duration-200 group/btn"
+                    >
+                      Quiero este servicio
+                      <ArrowRight size={13} className="group-hover/btn:translate-x-1 transition-transform duration-200" />
+                    </Link>
+                  </div>
                 </div>
 
-                {/* Right */}
-                <div className="flex flex-col justify-between">
-                  <ul className="space-y-2.5 mb-8">
-                    {service.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2.5 text-sm text-[#888]">
-                        <Check size={13} className="text-[#C8A96E] shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/presupuesto"
-                    className="inline-flex items-center gap-2 text-sm text-[#C8A96E] border border-[#C8A96E]/30 px-5 py-2.5 hover:bg-[#C8A96E] hover:text-[#0A0A0A] transition-all duration-300 group/btn self-start"
-                  >
-                    {service.cta}
-                    <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </Link>
-                </div>
+                {/* Bottom accent line */}
+                <div className="mt-8 h-px bg-gradient-to-r from-[#C8A96E]/0 via-[#C8A96E]/20 to-[#C8A96E]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </AnimateIn>
           ))}
-          <div className="border-t border-[#1E1E1E]" />
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6 bg-[#0D0D0D]">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ── CTA ── */}
+      <section className="py-28 px-6 bg-[#080808] relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] rounded-full bg-[#C8A96E]/[0.04] blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <AnimateIn>
-            <h2 className="font-display text-4xl md:text-5xl font-light italic text-[#F0EDE8] mb-4">
-              ¿No sabes qué necesitas?
+            <h2 className="font-display text-4xl md:text-6xl font-light italic text-[#F0EDE8] mb-5 leading-tight">
+              {t('cta.h2')}
             </h2>
-            <p className="text-[#666] mb-8">
-              Cuéntanos tu negocio y te recomendamos la solución ideal sin compromiso.
-            </p>
-            <Link
-              href="/contacto"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-sm font-semibold hover:bg-[#E2C99A] transition-colors duration-300 group"
-            >
-              Hablar con nosotros
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+            <p className="text-[#444] mb-10 font-light">{t('cta.sub')}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contacto" className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-[#C8A96E] text-[#0A0A0A] text-sm font-semibold hover:bg-[#E2C99A] transition-colors duration-300 group">
+                {t('cta.btn1')}
+                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+              </Link>
+              <a href="tel:+34618805348" className="inline-flex items-center justify-center gap-2 px-10 py-4 border border-[#2A2A2A] text-[#666] text-sm hover:border-[#C8A96E]/50 hover:text-[#F0EDE8] transition-all duration-300">
+                {t('cta.btn2')}
+              </a>
+            </div>
           </AnimateIn>
         </div>
       </section>
-    </>
+
+    </div>
   )
 }

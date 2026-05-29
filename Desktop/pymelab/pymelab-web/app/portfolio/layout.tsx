@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Portfolio — Proyectos de diseño web para PYMEs',
-  description: 'Descubre los proyectos de diseño web que hemos creado para nuestros clientes. Webs únicas, profesionales y diseñadas a medida.',
+  title: 'Casos de Uso — Automatizaciones reales para PYMEs',
+  description: 'Descubre las automatizaciones que hemos implementado para nuestros clientes. Bots de WhatsApp, email automation, captura de leads y más. Resultados reales.',
 }
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
