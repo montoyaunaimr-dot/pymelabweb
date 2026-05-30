@@ -180,23 +180,7 @@ export default function HomePage() {
       })
     })
 
-    /* ── Scroll animations — solo desktop para evitar elementos invisibles en mobile ── */
-    if (!isMobile) {
-      gsap.from('.service-card', {
-        opacity: 0, y: 28, duration: 0.65, stagger: 0.08, ease: 'power2.out',
-        scrollTrigger: { trigger: servicesGridRef.current, start: 'top 80%', once: true },
-      })
-
-      gsap.from('.howit-card', {
-        opacity: 0, y: 32, duration: 0.7, stagger: 0.14, ease: 'power2.out',
-        scrollTrigger: { trigger: howItRef.current, start: 'top 80%', once: true },
-      })
-
-      gsap.from('.case-step', {
-        opacity: 0, scale: 0.88, duration: 0.5, stagger: 0.12, ease: 'back.out(1.4)',
-        scrollTrigger: { trigger: caseRef.current, start: 'top 80%', once: true },
-      })
-    }
+    /* scroll animations handled by AnimateIn (framer-motion useInView) — more reliable */
 
   }, { scope: containerRef })
 
@@ -329,8 +313,8 @@ export default function HomePage() {
             {howItWorks.map(({ icon: Icon, num, titleKey, descKey, badgeIcon: BadgeIcon, badge, badgeSub, bullets }, i) => (
               <>
                 {/* ── Card ── */}
+                <AnimateIn key={num} delay={i * 0.15}>
                 <div
-                  key={num}
                   className="howit-card group relative rounded-2xl bg-[#0E0E0E] border border-[#1E1E1E] p-7 overflow-hidden hover:border-[#C8A96E]/30 transition-all duration-500"
                   style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.025)' }}
                 >
@@ -384,6 +368,7 @@ export default function HomePage() {
                   {/* Bottom animated line */}
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] rounded-b-2xl bg-gradient-to-r from-transparent via-[#C8A96E]/60 to-transparent origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
                 </div>
+                </AnimateIn>
 
                 {/* ── Arrow connector (desktop) ── */}
                 {i < 2 && (
@@ -412,10 +397,10 @@ export default function HomePage() {
           </AnimateIn>
 
           <div ref={servicesGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#181818]">
-            {servicesData.map(({ icon: Icon, titleKey, descKey, num }) => (
+            {servicesData.map(({ icon: Icon, titleKey, descKey, num }, i) => (
+              <AnimateIn key={titleKey} delay={i * 0.08}>
               <div
-                key={titleKey}
-                className="service-card relative block bg-[#0D0D0D] p-8 group hover:bg-[#111] transition-colors duration-300 cursor-default"
+                className="service-card relative block bg-[#0D0D0D] p-8 group hover:bg-[#111] transition-colors duration-300 cursor-default h-full"
               >
                 <span className="absolute top-6 right-6 font-display text-5xl font-light italic text-[#131313] group-hover:text-[#C8A96E]/6 transition-colors duration-500 select-none">
                   {num}
@@ -427,6 +412,7 @@ export default function HomePage() {
                 <p className="text-sm text-[#484848] leading-relaxed">{t(descKey)}</p>
                 <div className="mt-5 w-full h-px bg-gradient-to-r from-[#C8A96E]/0 via-[#C8A96E]/30 to-[#C8A96E]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
@@ -465,7 +451,7 @@ export default function HomePage() {
             {/* ── MOBILE layout: lista de tarjetas horizontales ── */}
             <div className="flex flex-col gap-3 md:hidden">
               {caseFlow.map(({ num, title, desc, iconColor, iconBg, iconType }, i) => (
-                <div key={i} className="case-step">
+                <AnimateIn key={i} delay={i * 0.08}>
                   {/* Card */}
                   <div
                     className="flex items-center gap-4 px-4 py-4 rounded-2xl border"
@@ -526,7 +512,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   )}
-                </div>
+                </AnimateIn>
               ))}
             </div>
 
@@ -534,7 +520,7 @@ export default function HomePage() {
             {/* Usamos items-start + marginTop fijo en flechas para que estén siempre a la misma altura */}
             <div className="hidden md:flex items-start justify-center gap-0">
               {caseFlow.map(({ num, title, desc, iconColor, iconBg, iconType }, i) => (
-                <div key={i} className="flex items-start shrink-0">
+                <AnimateIn key={i} delay={i * 0.1} className="flex items-start shrink-0">
                   {/* Step */}
                   <div className="case-step flex flex-col items-center text-center px-2" style={{ width: 136 }}>
                     {/* Number badge: h-8 (32px) + mb-3 (12px) = 44px antes del icono */}
@@ -584,7 +570,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   )}
-                </div>
+                </AnimateIn>
               ))}
             </div>
 
