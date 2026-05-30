@@ -531,16 +531,17 @@ export default function HomePage() {
             </div>
 
             {/* ── DESKTOP layout: fila horizontal ── */}
+            {/* Usamos items-start + marginTop fijo en flechas para que estén siempre a la misma altura */}
             <div className="hidden md:flex items-start justify-center gap-0">
               {caseFlow.map(({ num, title, desc, iconColor, iconBg, iconType }, i) => (
-                <div key={i} className="flex items-center shrink-0">
+                <div key={i} className="flex items-start shrink-0">
                   {/* Step */}
                   <div className="case-step flex flex-col items-center text-center px-2" style={{ width: 136 }}>
-                    {/* Number badge */}
+                    {/* Number badge: h-8 (32px) + mb-3 (12px) = 44px antes del icono */}
                     <div className="w-8 h-8 rounded-full border flex items-center justify-center mb-3 shrink-0" style={{ borderColor: `${iconColor}55` }}>
                       <span className="font-display text-[11px] font-medium" style={{ color: iconColor }}>{num}</span>
                     </div>
-                    {/* Icon box */}
+                    {/* Icon box: 72px, centrado en 44 + 36 = 80px desde arriba */}
                     <div className="w-[72px] h-[72px] rounded-2xl border flex items-center justify-center mb-4 shrink-0" style={{ background: iconBg, borderColor: `${iconColor}25` }}>
                       {iconType === 'whatsapp' && (
                         <svg viewBox="0 0 24 24" className="w-8 h-8" fill={iconColor}>
@@ -575,9 +576,9 @@ export default function HomePage() {
                     <p className="text-[11px] text-[#3E3E3E] leading-relaxed whitespace-pre-line">{desc}</p>
                   </div>
 
-                  {/* Arrow connector */}
+                  {/* Flecha: marginTop = 32(badge) + 12(mb-3) + 36(mitad icono) - 16(mitad flecha) = 64px */}
                   {i < caseFlow.length - 1 && (
-                    <div className="flex items-center justify-center mx-1 shrink-0" style={{ marginTop: '-60px' }}>
+                    <div className="flex justify-center mx-1 shrink-0" style={{ marginTop: '64px' }}>
                       <div className="w-8 h-8 rounded-full border border-[#2A2A2A] bg-[#111] flex items-center justify-center">
                         <ArrowRight size={13} className="text-[#C8A96E]/50" />
                       </div>
