@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Check, ArrowRight, Zap, Shield, Clock, HelpCircle } from 'lucide-react'
+import { Check, ArrowRight, Zap, Shield, Clock, HelpCircle, Server, Wrench, Bot, Headphones } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
 
@@ -167,6 +167,70 @@ export default function PricingPage() {
                   {t('pricing.get')}
                 </Link>
               </div>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* ── Por qué mensual ── */}
+      <section className="py-20 px-6 bg-[#080808] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.015] pointer-events-none" style={{
+          backgroundImage: `radial-gradient(circle, rgba(200,169,110,1) 1px, transparent 1px)`,
+          backgroundSize: '44px 44px',
+        }} />
+        <div className="max-w-5xl mx-auto relative">
+          <AnimateIn className="text-center mb-12">
+            <Tag>La cuota mensual</Tag>
+            <h2 className="font-display text-3xl md:text-4xl font-light italic text-[#F0EDE8] mt-4 mb-3 leading-tight">
+              ¿Por qué se paga cada mes?
+            </h2>
+            <p className="text-[#444] text-sm max-w-xl mx-auto leading-relaxed">
+              Tu automatización no es un producto que compras una vez — es un sistema vivo que trabaja para ti 24/7. La cuota mensual cubre todo lo que necesita para seguir funcionando.
+            </p>
+          </AnimateIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                icon: Server,
+                title: 'Infraestructura activa',
+                desc: 'Servidores, hosting y APIs corriendo sin parar. Cada automatización tiene un coste real de operación mensual.',
+              },
+              {
+                icon: Bot,
+                title: 'APIs de IA incluidas',
+                desc: 'OpenAI GPT-4, WhatsApp Business API, Resend y todas las integraciones cubiertas. Sin sorpresas en la factura.',
+              },
+              {
+                icon: Wrench,
+                title: 'Mantenimiento continuo',
+                desc: 'Las APIs cambian, los flujos se actualizan. Si algo falla lo arreglamos antes de que te enteres.',
+              },
+              {
+                icon: Headphones,
+                title: 'Soporte prioritario',
+                desc: 'Respuesta garantizada en menos de 24h por WhatsApp o email. Tu negocio no puede permitirse esperas.',
+              },
+            ].map(({ icon: Icon, title, desc }, i) => (
+              <AnimateIn key={i} delay={i * 0.08}>
+                <div className="h-full border border-[#141414] bg-[#0A0A0A] p-6 hover:border-[#C8A96E]/20 transition-colors duration-300 group">
+                  <div className="w-10 h-10 rounded-lg bg-[#111] border border-[#1E1E1E] flex items-center justify-center mb-5 group-hover:border-[#C8A96E]/30 transition-colors duration-300">
+                    <Icon size={16} className="text-[#C8A96E]" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-[#D0CCC6] mb-2">{title}</h3>
+                  <p className="text-xs text-[#444] leading-relaxed">{desc}</p>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+
+          {/* Nota final */}
+          <AnimateIn delay={0.35}>
+            <div className="mt-8 border border-[#C8A96E]/15 bg-[#C8A96E]/[0.03] px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <Shield size={15} className="text-[#C8A96E] shrink-0 mt-0.5 sm:mt-0" />
+              <p className="text-xs text-[#555] leading-relaxed">
+                <span className="text-[#C8A96E] font-medium">Sin permanencia.</span> Si en algún momento decides cancelar, te quedas con todo lo automatizado y te ayudamos con la transición. Solo necesitamos 30 días de preaviso.
+              </p>
             </div>
           </AnimateIn>
         </div>
