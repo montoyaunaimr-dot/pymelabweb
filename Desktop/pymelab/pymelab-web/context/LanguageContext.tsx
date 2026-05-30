@@ -27,7 +27,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'hero.h1b':          'en piloto automático.',
     'hero.sub':          'Automatizamos los procesos de tu empresa con tecnología de última generación. Sin contratar más personal. Sin perder tiempo.',
     'hero.cta1':         'Ver automatizaciones',
-    'hero.cta2':         'Hablar con nosotros',
+    'hero.cta2':         'Calcula tu presupuesto',
 
     /* ── Stats ── */
     'stats.timesaved':   'Tiempo ahorrado',
@@ -204,7 +204,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'hero.h1b':          'on autopilot.',
     'hero.sub':          'We automate your company\'s processes with cutting-edge technology. No extra staff. No wasted time.',
     'hero.cta1':         'See automations',
-    'hero.cta2':         'Talk to us',
+    'hero.cta2':         'Get a quote',
 
     /* ── Stats ── */
     'stats.timesaved':   'Time saved',
