@@ -16,7 +16,10 @@ import { useLang } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-import AutomationFlow from '@/components/AutomationFlow'
+const AutomationFlow = dynamic(
+  () => import('@/components/AutomationFlow'),
+  { ssr: false }
+)
 
 /* ─── Tag ───────────────────────────────────────────────────────── */
 function Tag({ dark = false, children }: { dark?: boolean; children: React.ReactNode }) {
@@ -140,30 +143,32 @@ export default function HomePage() {
   useGSAP(() => {
     const isMobile = window.innerWidth < 768
 
-    /* ── Hero timeline ── */
-    const tl = gsap.timeline({ delay: 0.05, defaults: { ease: 'power4.out' } })
-    tl.from('.hw1',       { yPercent: 115, duration: 1, stagger: 0.06 }, 0.3)
-    tl.from('.hw2',       { yPercent: 115, duration: 1 }, 0.48)
-    if (!isMobile) {
-      tl.from('.hero-tag',  { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
-      tl.from('.hero-sub',  { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
-      tl.from('.hero-ctas', { y: 20, opacity: 0, duration: 0.7, ease: 'power2.out' }, 1.0)
-      tl.from('.hero-orb',  { opacity: 0, scale: 0.92, duration: 1.2, ease: 'power3.out' }, 0.4)
+    if (isMobile) {
+      /* En mobile: sin animaciones de entrada — todo visible desde el inicio */
+      gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+      return
     }
+
+    /* ── Hero timeline — solo desktop ── */
+    const tl = gsap.timeline({ delay: 0.05, defaults: { ease: 'power4.out' } })
+    tl.from('.hw1',        { yPercent: 115, duration: 1, stagger: 0.06 }, 0.3)
+    tl.from('.hw2',        { yPercent: 115, duration: 1 }, 0.48)
+    tl.from('.hero-tag',   { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
+    tl.from('.hero-sub',   { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
+    tl.from('.hero-ctas',  { y: 20, opacity: 0, duration: 0.7, ease: 'power2.out' }, 1.0)
+    tl.from('.hero-orb',   { opacity: 0, scale: 0.92, duration: 1.2, ease: 'power3.out' }, 0.4)
     tl.from('.hero-scroll', { opacity: 0, duration: 0.8 }, 1.25)
     tl.add(() => {
       gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
     })
 
-    /* hero parallax — solo desktop, sin fade a negro */
-    if (!isMobile) {
-      gsap.to(heroContentRef.current, {
-        yPercent: 14, ease: 'none',
-        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
-      })
-    }
+    /* Parallax — solo desktop */
+    gsap.to(heroContentRef.current, {
+      yPercent: 14, ease: 'none',
+      scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
+    })
 
-    /* ── Stats counter ── */
+    /* ── Stats counter — solo desktop ── */
     gsap.utils.toArray<HTMLElement>('.stat-num').forEach((el) => {
       const target = parseFloat(el.dataset.target ?? '0')
       const proxy = { val: target }
@@ -180,7 +185,7 @@ export default function HomePage() {
       })
     })
 
-    /* scroll animations handled by AnimateIn (framer-motion useInView) — more reliable */
+    /* scroll animations handled by AnimateIn (framer-motion useInView) */
 
   }, { scope: containerRef })
 
@@ -251,8 +256,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT — Automation Flow Diagram */}
-            <div className="hero-orb relative flex items-center justify-center py-8 lg:py-0">
+            {/* RIGHT — Automation Flow Diagram (desktop only — too heavy for mobile) */}
+            <div className="hero-orb hidden lg:flex items-center justify-center">
               <AutomationFlow />
             </div>
           </div>
