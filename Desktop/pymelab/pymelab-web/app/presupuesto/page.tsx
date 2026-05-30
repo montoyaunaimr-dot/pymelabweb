@@ -172,22 +172,17 @@ export default function PresupuestoPage() {
     setSending(true)
     setSendError(false)
     try {
-      const res = await fetch('https://unaimontoya.app.n8n.cloud/webhook/pymelab-lead', {
+      const res = await fetch('/api/presupuesto', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          source:       'presupuesto',
-          name:         formData.name,
-          email:        formData.email,
-          phone:        formData.phone,
-          company:      formData.company,
-          message:      formData.notes || 'Solicitud desde calculadora de presupuesto',
           selections,
-          setupPrice:   displaySetup,
-          monthlyPrice: displayMonthly,
+          estimatedPrice: displaySetup,
+          monthlyExtra:   displayMonthly,
+          formData,
         }),
       })
-      if (res.ok || res.status === 200) {
+      if (res.ok) {
         router.push('/gracias')
       } else {
         setSendError(true)

@@ -3,56 +3,45 @@ import { NextResponse } from 'next/server'
 
 /* ─── Label maps ─────────────────────────────────────────────────── */
 const labels: Record<string, Record<string, string>> = {
-  type: {
-    corporativa: 'Web corporativa / informativa',
-    ecommerce:   'Tienda online (e-commerce)',
-    portfolio:   'Portfolio / personal',
-    blog:        'Blog o revista digital',
-    landing:     'Landing page (una sola página)',
+  automation: {
+    whatsapp:     'Bot de WhatsApp',
+    email:        'Email Automation',
+    leads:        'Captura de Leads',
+    integrations: 'Integraciones (CRM, Sheets, Calendar…)',
+    reports:      'Informes Automáticos',
   },
-  pages: {
-    small:  '1-3 páginas',
-    medium: '4-6 páginas',
-    large:  '7-10 páginas',
-    xlarge: 'Más de 10 páginas',
+  sector: {
+    health:    'Clínica / Salud / Dentista',
+    food:      'Restaurante / Hostelería',
+    services:  'Servicios profesionales',
+    ecommerce: 'E-commerce / Tienda online',
+    other:     'Otro sector',
   },
-  design: {
-    yes:     'Sí, tiene logo y colores de marca',
-    partial: 'Tiene algunas ideas pero nada definido',
-    no:      'No, necesita diseño completo',
+  tools: {
+    sheets:   'Google Sheets / Drive',
+    crm:      'HubSpot / Pipedrive / CRM',
+    shop:     'Shopify / WooCommerce',
+    calendar: 'Calendly / Acuity',
+    none:     'Empezamos desde cero',
   },
-  features: {
-    contact:   'Formulario de contacto',
-    chat:      'Chat en vivo',
-    bookings:  'Reservas online',
-    blog:      'Blog / noticias',
-    multilang: 'Multi-idioma',
+  web: {
+    no:      'No, ya tiene web',
+    landing: 'Sí, quiere landing page (+299€)',
+    full:    'Sí, quiere web completa (+499€)',
   },
   plan: {
-    basico:   'Básico (desde 299€)',
-    premium:  'Premium (desde 499€)',
-    unknown:  'Aún no lo sé',
-  },
-  extras_rev: {
-    rev0: 'Sin revisiones mensuales',
-    rev1: '1 revisión y actualización al mes (+50€/mes)',
-    rev2: '2 revisiones y actualizaciones al mes (+100€/mes)',
-    rev3: '3 revisiones y actualizaciones al mes (+150€/mes)',
-  },
-  extras_analytics: {
-    no:  'No',
-    yes: 'Sí — Google Analytics + informe mensual (+50€/mes)',
+    esencial: 'Plan Esencial — 497€ + 97€/mes',
+    premium:  'Plan Premium — 997€ + 197€/mes',
+    unknown:  'Aún no lo tiene claro',
   },
 }
 
 const stepNames: Record<string, string> = {
-  type:             'Tipo de web',
-  pages:            'Páginas',
-  design:           'Diseño / marca',
-  features:         'Funcionalidades',
-  plan:             'Plan',
-  extras_rev:       'Revisiones mensuales',
-  extras_analytics: 'Google Analytics',
+  automation: '¿Qué quiere automatizar?',
+  sector:     'Sector del negocio',
+  tools:      'Herramientas actuales',
+  web:        '¿Necesita web?',
+  plan:       'Plan seleccionado',
 }
 
 function resolveLabel(stepId: string, value: string | string[]): string {
