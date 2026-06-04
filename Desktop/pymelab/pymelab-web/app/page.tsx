@@ -240,8 +240,8 @@ export default function HomePage() {
                   {t('hero.cta1')}
                   <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
-                <Link href="/presupuesto" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-[#2A2A2A] text-[#888] text-sm font-light tracking-wide hover:border-[#C8A96E]/60 hover:text-[#F0EDE8] transition-all duration-300">
-                  {t('hero.cta2')}
+                <Link href="/contacto" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-[#2A2A2A] text-[#888] text-sm font-light tracking-wide hover:border-[#C8A96E]/60 hover:text-[#F0EDE8] transition-all duration-300">
+                  Pedir demo gratis
                   <ChevronRight size={15} />
                 </Link>
               </div>

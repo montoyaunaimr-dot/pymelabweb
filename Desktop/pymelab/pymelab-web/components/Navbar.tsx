@@ -72,13 +72,23 @@ export default function Navbar() {
           </nav>
 
           {/* Right */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
               className="text-xs tracking-widest text-[#444] hover:text-[#C8A96E] transition-colors duration-200 uppercase font-light"
             >
               {lang === 'es' ? 'EN' : 'ES'}
             </button>
+            <Link
+              href="/demo"
+              className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium tracking-wide border transition-colors duration-300 ${
+                pathname === '/demo'
+                  ? 'border-[#C8A96E] text-[#C8A96E]'
+                  : 'border-[#2A2A2A] text-[#666] hover:border-[#C8A96E] hover:text-[#C8A96E]'
+              }`}
+            >
+              Demo gratis
+            </Link>
             <Link
               href="/contacto"
               className="relative overflow-hidden flex items-center gap-2 px-5 py-2.5 text-sm font-medium tracking-wide bg-[#C8A96E] text-[#0A0A0A] group transition-colors duration-300 hover:bg-[#E2C99A]"
@@ -135,6 +145,12 @@ export default function Navbar() {
             </nav>
 
             <div className="relative mt-auto pb-12 flex flex-col gap-4">
+              <Link
+                href="/demo"
+                className="w-full text-center py-4 border border-[#C8A96E] text-[#C8A96E] text-sm font-semibold tracking-wide"
+              >
+                Demo gratuita
+              </Link>
               <Link
                 href="/contacto"
                 className="w-full text-center py-4 bg-[#C8A96E] text-[#0A0A0A] text-sm font-semibold tracking-wide"
