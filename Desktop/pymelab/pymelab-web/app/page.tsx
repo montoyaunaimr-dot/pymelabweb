@@ -327,7 +327,7 @@ export default function HomePage() {
           </AnimateIn>
 
           {/* Steps + connectors */}
-          <div ref={howItRef} className="grid grid-cols-1 md:grid-cols-[1fr_56px_1fr_56px_1fr] items-start gap-4 md:gap-0">
+          <div ref={howItRef} className="grid grid-cols-1 md:grid-cols-[1fr_56px_1fr_56px_1fr] items-stretch gap-4 md:gap-0">
             {howItWorks.map(({ icon: Icon, num, titleKey, descKey, badgeIcon: BadgeIcon, badge, badgeSub, bullets }, i) => (
               <>
                 {/* ── Card ── */}
@@ -390,7 +390,7 @@ export default function HomePage() {
 
                 {/* ── Arrow connector (desktop) ── */}
                 {i < 2 && (
-                  <div key={`conn-${i}`} className="hidden md:flex items-center justify-center" style={{ paddingTop: '72px' }}>
+                  <div key={`conn-${i}`} className="hidden md:flex items-center justify-center self-stretch">
                     <div className="w-10 h-10 rounded-full border border-[#2A2A2A] bg-[#0E0E0E] flex items-center justify-center"
                       style={{ boxShadow: '0 0 12px rgba(0,0,0,0.5)' }}>
                       <ArrowRight size={14} className="text-[#C8A96E]/50" />
