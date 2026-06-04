@@ -235,14 +235,25 @@ export default function HomePage() {
                 {t('hero.sub')}
               </p>
 
-              <div className="hero-ctas flex flex-col sm:flex-row items-start gap-4">
-                <Link href="/servicios" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-sm font-semibold tracking-wide hover:bg-[#E2C99A] transition-colors duration-300 group">
+              <div className="hero-ctas flex flex-col sm:flex-row items-center gap-3">
+                {/* Primary CTA */}
+                <Link
+                  href="/servicios"
+                  className="group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#C8A96E] text-[#0A0A0A] text-[13px] font-semibold tracking-[0.06em] uppercase overflow-hidden transition-all duration-300 hover:bg-[#D4B87E] hover:shadow-[0_0_28px_rgba(200,169,110,0.35)]"
+                >
+                  {/* Shimmer sweep */}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
                   {t('hero.cta1')}
-                  <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
-                <Link href="/contacto" className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-[#2A2A2A] text-[#888] text-sm font-light tracking-wide hover:border-[#C8A96E]/60 hover:text-[#F0EDE8] transition-all duration-300">
+
+                {/* Secondary CTA */}
+                <Link
+                  href="/contacto"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#333] text-[#777] text-[13px] font-light tracking-[0.06em] uppercase transition-all duration-300 hover:border-[#C8A96E]/50 hover:text-[#C8A96E] hover:bg-[#C8A96E]/[0.04]"
+                >
                   Pedir demo gratis
-                  <ChevronRight size={15} />
+                  <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
               </div>
 
