@@ -93,9 +93,36 @@ body {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 20s linear infinite;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
 }
-.marquee-track:hover { animation-play-state: paused; }
+@media (hover: hover) {
+  .marquee-track:hover { animation-play-state: paused; }
+}
+
+/* ── Mobile performance ────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Slow down marquee on mobile to reduce GPU load */
+  .marquee-track {
+    animation-duration: 40s;
+  }
+  /* Disable CSS transitions on hover cards (no hover on mobile anyway) */
+  .service-card,
+  .howit-card {
+    transition: none !important;
+  }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 /* ── Glow effects ──────────────────────────────────────────────── */
 .glow-gold {

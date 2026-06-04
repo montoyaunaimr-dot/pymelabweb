@@ -1,10 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import {
   ArrowRight, MessageCircle, Mail, Target, Link2,
@@ -13,8 +11,6 @@ import {
 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 import { useLang } from '@/context/LanguageContext'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const AutomationFlow = dynamic(
   () => import('@/components/AutomationFlow'),
@@ -132,6 +128,7 @@ const caseFlow = [
 /* ═══════════════════════════════════════════════════════════════════ */
 export default function HomePage() {
   const { t } = useLang()
+  const [isDesktop, setIsDesktop] = useState(false)
 
   const containerRef    = useRef<HTMLDivElement>(null)
   const heroRef         = useRef<HTMLElement>(null)
@@ -140,53 +137,56 @@ export default function HomePage() {
   const howItRef        = useRef<HTMLDivElement>(null)
   const caseRef         = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 1024)
+  }, [])
+
   useGSAP(() => {
     const isMobile = window.innerWidth < 768
+    if (isMobile) return   /* no GSAP at all on mobile */
 
-    if (isMobile) {
-      /* En mobile: sin animaciones de entrada — todo visible desde el inicio */
-      gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
-      return
-    }
+    /* Dynamic import of GSAP plugins — only runs on desktop */
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger)
 
-    /* ── Hero timeline — solo desktop ── */
-    const tl = gsap.timeline({ delay: 0.05, defaults: { ease: 'power4.out' } })
-    tl.from('.hw1',        { yPercent: 115, duration: 1, stagger: 0.06 }, 0.3)
-    tl.from('.hw2',        { yPercent: 115, duration: 1 }, 0.48)
-    tl.from('.hero-tag',   { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
-    tl.from('.hero-sub',   { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
-    tl.from('.hero-ctas',  { y: 20, opacity: 0, duration: 0.7, ease: 'power2.out' }, 1.0)
-    tl.from('.hero-orb',   { opacity: 0, scale: 0.92, duration: 1.2, ease: 'power3.out' }, 0.4)
-    tl.from('.hero-scroll', { opacity: 0, duration: 0.8 }, 1.25)
-    tl.add(() => {
-      gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
-    })
+        /* ── Hero timeline ── */
+        const tl = gsap.timeline({ delay: 0.05, defaults: { ease: 'power4.out' } })
+        tl.from('.hw1',        { yPercent: 115, duration: 1, stagger: 0.06 }, 0.3)
+        tl.from('.hw2',        { yPercent: 115, duration: 1 }, 0.48)
+        tl.from('.hero-tag',   { opacity: 0, y: 10, duration: 0.7, ease: 'power2.out' }, 0.15)
+        tl.from('.hero-sub',   { opacity: 0, y: 14, duration: 0.7, ease: 'power2.out' }, 0.85)
+        tl.from('.hero-ctas',  { y: 20, opacity: 0, duration: 0.7, ease: 'power2.out' }, 1.0)
+        tl.from('.hero-orb',   { opacity: 0, scale: 0.92, duration: 1.2, ease: 'power3.out' }, 0.4)
+        tl.from('.hero-scroll', { opacity: 0, duration: 0.8 }, 1.25)
+        tl.add(() => {
+          gsap.to('.hero-scroll-line', { y: 7, duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+        })
 
-    /* Parallax — solo desktop */
-    gsap.to(heroContentRef.current, {
-      yPercent: 14, ease: 'none',
-      scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
-    })
+        /* Parallax */
+        gsap.to(heroContentRef.current, {
+          yPercent: 14, ease: 'none',
+          scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 },
+        })
 
-    /* ── Stats counter — solo desktop ── */
-    gsap.utils.toArray<HTMLElement>('.stat-num').forEach((el) => {
-      const target = parseFloat(el.dataset.target ?? '0')
-      const proxy = { val: target }
-      el.textContent = Math.round(target).toString()
-      ScrollTrigger.create({
-        trigger: el, start: 'top 95%', once: true,
-        onEnter() {
-          proxy.val = 0; el.textContent = '0'
-          gsap.to(proxy, {
-            val: target, duration: 2, ease: 'power2.out',
-            onUpdate() { el.textContent = Math.round(proxy.val).toString() },
+        /* Stats counter */
+        gsap.utils.toArray<HTMLElement>('.stat-num').forEach((el) => {
+          const target = parseFloat(el.dataset.target ?? '0')
+          const proxy = { val: target }
+          el.textContent = Math.round(target).toString()
+          ScrollTrigger.create({
+            trigger: el, start: 'top 95%', once: true,
+            onEnter() {
+              proxy.val = 0; el.textContent = '0'
+              gsap.to(proxy, {
+                val: target, duration: 2, ease: 'power2.out',
+                onUpdate() { el.textContent = Math.round(proxy.val).toString() },
+              })
+            },
           })
-        },
+        })
       })
     })
-
-    /* scroll animations handled by AnimateIn (framer-motion useInView) */
-
   }, { scope: containerRef })
 
   /* ─────────────────────────────────────────────────────────────── */
@@ -198,13 +198,13 @@ export default function HomePage() {
         ref={heroRef}
         className="relative min-h-screen flex items-center overflow-hidden bg-[#0A0A0A]"
       >
-        {/* Grid bg */}
-        <div className="absolute inset-0 opacity-[0.022] pointer-events-none" style={{
+        {/* Grid bg — desktop only */}
+        <div className="hidden md:block absolute inset-0 opacity-[0.022] pointer-events-none" style={{
           backgroundImage: `linear-gradient(rgba(200,169,110,1) 1px,transparent 1px),linear-gradient(90deg,rgba(200,169,110,1) 1px,transparent 1px)`,
           backgroundSize: '80px 80px',
         }} />
-        {/* Glow */}
-        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] rounded-full bg-[#C8A96E]/[0.045] blur-[160px] pointer-events-none" />
+        {/* Glow — desktop only (blur is GPU-intensive on mobile) */}
+        <div className="hidden md:block absolute top-1/3 left-1/4 w-[600px] h-[600px] rounded-full bg-[#C8A96E]/[0.045] blur-[160px] pointer-events-none" />
 
         <div ref={heroContentRef} className="relative z-10 w-full max-w-7xl mx-auto px-6 py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -256,10 +256,12 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT — Automation Flow Diagram (desktop only — too heavy for mobile) */}
-            <div className="hero-orb hidden lg:flex items-center justify-center">
-              <AutomationFlow />
-            </div>
+            {/* RIGHT — Automation Flow Diagram (desktop only — not rendered on mobile) */}
+            {isDesktop && (
+              <div className="hero-orb hidden lg:flex items-center justify-center">
+                <AutomationFlow />
+              </div>
+            )}
           </div>
         </div>
 
@@ -299,7 +301,7 @@ export default function HomePage() {
 
       {/* ══ HOW IT WORKS ═════════════════════════════════════════ */}
       <section className="py-32 px-6 bg-[#080808] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.018] pointer-events-none" style={{
+        <div className="hidden md:block absolute inset-0 opacity-[0.018] pointer-events-none" style={{
           backgroundImage: `radial-gradient(circle, rgba(200,169,110,1) 1px, transparent 1px)`,
           backgroundSize: '44px 44px',
         }} />
@@ -425,11 +427,11 @@ export default function HomePage() {
 
       {/* ══ CASE STUDY ═══════════════════════════════════════════ */}
       <section className="py-28 px-6 bg-[#0A0A0A] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.015] pointer-events-none" style={{
+        <div className="hidden md:block absolute inset-0 opacity-[0.015] pointer-events-none" style={{
           backgroundImage: `radial-gradient(circle, rgba(200,169,110,1) 1px, transparent 1px)`,
           backgroundSize: '40px 40px',
         }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] rounded-full bg-[#C8A96E]/[0.03] blur-[100px] pointer-events-none" />
+        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] rounded-full bg-[#C8A96E]/[0.03] blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto">
 
@@ -711,7 +713,7 @@ export default function HomePage() {
 
       {/* ══ CTA FINAL ════════════════════════════════════════════ */}
       <section className="py-36 px-6 bg-[#0A0A0A] relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full bg-[#C8A96E]/[0.04] blur-[120px] pointer-events-none" />
+        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full bg-[#C8A96E]/[0.04] blur-[120px] pointer-events-none" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <AnimateIn>
             <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light italic text-[#F0EDE8] mb-5 leading-tight">

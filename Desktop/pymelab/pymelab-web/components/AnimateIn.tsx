@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, ReactNode } from 'react'
+import { useRef, ReactNode, useState, useEffect } from 'react'
 
 interface Props {
   children: ReactNode
@@ -10,12 +10,6 @@ interface Props {
   once?: boolean
 }
 
-/*
-  Animación editorial ultra-limpia:
-  - Solo fade + 16px up. Nada más.
-  - Easing suave (ease-out cúbico).
-  - 0.55s — ni lento ni rápido.
-*/
 export default function AnimateIn({
   children,
   className = '',
@@ -23,7 +17,17 @@ export default function AnimateIn({
   once = true,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
+  const [mobile, setMobile] = useState(false)
   const inView = useInView(ref, { once, margin: '0px 0px -10% 0px' })
+
+  useEffect(() => {
+    setMobile(window.innerWidth < 768)
+  }, [])
+
+  /* On mobile: no animation, instant visible */
+  if (mobile) {
+    return <div className={className}>{children}</div>
+  }
 
   return (
     <motion.div
