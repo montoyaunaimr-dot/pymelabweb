@@ -236,23 +236,22 @@ export default function HomePage() {
               </p>
 
               <div className="hero-ctas flex flex-col sm:flex-row items-center gap-3">
-                {/* Primary CTA */}
+                {/* Primary CTA — Demo */}
                 <Link
-                  href="/servicios"
+                  href="/portfolio"
                   className="group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#C8A96E] text-[#0A0A0A] text-[13px] font-semibold tracking-[0.06em] uppercase overflow-hidden transition-all duration-300 hover:bg-[#D4B87E] hover:shadow-[0_0_28px_rgba(200,169,110,0.35)]"
                 >
-                  {/* Shimmer sweep */}
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-                  {t('hero.cta1')}
+                  Pedir demo gratis
                   <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
 
                 {/* Secondary CTA */}
                 <Link
-                  href="/contacto"
+                  href="/servicios"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#333] text-[#777] text-[13px] font-light tracking-[0.06em] uppercase transition-all duration-300 hover:border-[#C8A96E]/50 hover:text-[#C8A96E] hover:bg-[#C8A96E]/[0.04]"
                 >
-                  Pedir demo gratis
+                  {t('hero.cta1')}
                   <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
               </div>

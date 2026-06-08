@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Casos de Uso — Automatizaciones reales para PYMEs',
-  description: 'Descubre las automatizaciones que hemos implementado para nuestros clientes. Bots de WhatsApp, email automation, captura de leads y más. Resultados reales.',
+  title: 'Demo Gratuita — Tu automatización personalizada en 48 horas',
+  description: 'Construimos un prototipo real de tu automatización en menos de 48 horas, gratis y sin compromiso. Solicita tu demo personalizada y vélo funcionar en directo.',
 }
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {

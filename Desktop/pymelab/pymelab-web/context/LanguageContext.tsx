@@ -15,7 +15,7 @@ const translations: Record<Lang, Record<string, string>> = {
     /* ── Nav ── */
     'nav.home':          'Inicio',
     'nav.services':      'Servicios',
-    'nav.portfolio':     'Casos',
+    'nav.portfolio':     'Demo gratuita',
     'nav.pricing':       'Precios',
     'nav.about':         'Nosotros',
     'nav.contact':       'Contacto',
