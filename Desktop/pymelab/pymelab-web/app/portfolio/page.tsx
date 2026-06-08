@@ -61,27 +61,26 @@ const resultCards = [
 
 function HeroVisual() {
   return (
-    <div className="relative select-none" style={{ height: 560 }}>
+    <div className="relative select-none">
 
       {/* ── Background ambient ── */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#C8A96E]/[0.06] blur-[80px]" />
       </div>
 
-      {/* ── STATS mini card — top right ── */}
+      {/* ── STATS mini card — floats top-right over chat header ── */}
       <motion.div
         initial={{ opacity: 0, x: 20, y: -10 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ delay: 0.4, duration: 0.7, ease: [0.16,1,0.3,1] }}
-        className="absolute top-0 right-0 w-48 border border-[#C8A96E]/20 bg-[#0C0B08] px-4 py-3 z-20"
-        style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(200,169,110,0.06)' }}
+        className="absolute top-0 right-0 w-44 border border-[#C8A96E]/20 bg-[#0C0B08] px-4 py-3 z-20"
+        style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(200,169,110,0.06)' }}
       >
         <div className="text-[9px] tracking-[0.18em] uppercase text-[#444] mb-2">Respuesta media</div>
         <div className="flex items-end gap-1.5 mb-3">
           <span className="font-display text-3xl font-light italic text-[#C8A96E] leading-none">2.3</span>
           <span className="text-[10px] text-[#555] mb-0.5">segundos</span>
         </div>
-        {/* Mini bar chart */}
         <div className="flex items-end gap-0.5 h-6">
           {[3,5,4,7,5,8,6,9,7,10].map((h, i) => (
             <motion.div
@@ -96,175 +95,177 @@ function HeroVisual() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/40 to-transparent" />
       </motion.div>
 
-      {/* ── MAIN WhatsApp chat ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.55, duration: 0.8, ease: [0.16,1,0.3,1] }}
-        className="absolute top-10 left-0 w-[88%] overflow-hidden z-10"
-        style={{
-          boxShadow: '0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04)',
-          borderRadius: 2,
-        }}
-      >
-        {/* Chat header */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#151515]" style={{ background: '#0F0F0F' }}>
-          <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(37,211,102,0.12)', border: '1px solid rgba(37,211,102,0.25)' }}>
-            <WaIcon size={18} />
+      {/* ── FLOW LAYOUT — chat → trigger → cards ── */}
+      <div className="flex flex-col gap-2">
+
+        {/* Chat */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.8, ease: [0.16,1,0.3,1] }}
+          className="overflow-hidden"
+          style={{
+            boxShadow: '0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04)',
+            borderRadius: 2,
+          }}
+        >
+          {/* Chat header */}
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-[#151515]" style={{ background: '#0F0F0F' }}>
+            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(37,211,102,0.12)', border: '1px solid rgba(37,211,102,0.25)' }}>
+              <WaIcon size={18} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold text-[#F0EDE8] truncate">Bot IA · Clínica Dental</div>
+              <div className="flex items-center gap-1.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#25D366]" />
+                </span>
+                <span className="text-[10px] text-[#25D366]/70">En línea · responde al instante</span>
+              </div>
+            </div>
+            <div className="text-[9px] tracking-[0.15em] text-[#333] uppercase">PyMeLab</div>
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-[12px] font-semibold text-[#F0EDE8] truncate">Bot IA · Clínica Dental</div>
-            <div className="flex items-center gap-1.5">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#25D366]" />
-              </span>
-              <span className="text-[10px] text-[#25D366]/70">En línea · responde al instante</span>
+
+          {/* Messages area — auto height, no clipping */}
+          <div className="px-4 py-4 space-y-3" style={{ background: 'linear-gradient(180deg,#0A0A0A 0%,#080808 100%)' }}>
+            {chatMsgs.map(({ id, from, text, time, delay }) => (
+              <motion.div
+                key={id}
+                initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay, duration: 0.4, ease: [0.16,1,0.3,1] }}
+                className={`flex ${from === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className="max-w-[82%] px-3.5 py-2.5 text-[12px] leading-relaxed whitespace-pre-line"
+                  style={from === 'user'
+                    ? { background: '#1A3324', border: '1px solid rgba(37,211,102,0.15)', borderRadius: '14px 14px 2px 14px', color: '#C8C5C0' }
+                    : { background: '#141414', border: '1px solid rgba(200,169,110,0.18)', borderRadius: '14px 14px 14px 2px', color: '#C8C5C0',
+                        boxShadow: 'inset 0 1px 0 rgba(200,169,110,0.05)' }
+                  }
+                >
+                  {from === 'bot' && (
+                    <div className="text-[9px] tracking-[0.12em] uppercase text-[#C8A96E]/50 mb-1.5">IA · PyMeLab</div>
+                  )}
+                  {text}
+                  <div className={`flex items-center gap-1 mt-1.5 ${from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <span className="text-[9px] text-[#333]">{time}</span>
+                    {from === 'user' && <span className="text-[10px] text-[#25D366]/60">✓✓</span>}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Typing indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
+              transition={{ delay: 2.8, duration: 1.2, times: [0, 0.1, 0.7, 1] }}
+              className="flex justify-start"
+            >
+              <div style={{ background: '#141414', border: '1px solid rgba(200,169,110,0.15)', borderRadius: '14px 14px 14px 2px' }}>
+                <TypingDots />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Input bar */}
+          <div className="flex items-center gap-2 px-3 py-2.5 border-t border-[#111]" style={{ background: '#0C0C0C' }}>
+            <div className="flex-1 text-[11px] text-[#2A2A2A] px-3 py-2 rounded-full" style={{ background: '#141414', border: '1px solid #1A1A1A' }}>
+              Escribe un mensaje...
+            </div>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(37,211,102,0.15)' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
           </div>
-          <div className="text-[9px] tracking-[0.15em] text-[#333] uppercase">PyMeLab</div>
-        </div>
+        </motion.div>
 
-        {/* Messages area */}
-        <div className="px-4 py-4 space-y-3 min-h-[220px]" style={{ background: 'linear-gradient(180deg,#0A0A0A 0%,#080808 100%)' }}>
-          {chatMsgs.map(({ id, from, text, time, delay }) => (
+        {/* ── AUTOMATION TRIGGER BAR ── */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ delay: 3.6, duration: 0.5, ease: [0.16,1,0.3,1] }}
+          style={{ transformOrigin: 'left' }}
+        >
+          <div
+            className="flex items-center gap-2.5 px-4 py-2.5"
+            style={{ background: 'rgba(200,169,110,0.07)', border: '1px solid rgba(200,169,110,0.2)', borderTop: '1px solid rgba(200,169,110,0.3)' }}
+          >
+            <Zap size={11} className="text-[#C8A96E] shrink-0" />
+            <span className="text-[10px] tracking-[0.14em] uppercase text-[#C8A96E]/70 flex-1">
+              Automatización disparada · n8n
+            </span>
+            <div className="flex items-center gap-1.5">
+              {[
+                { bg: 'rgba(37,211,102,0.15)', border: 'rgba(37,211,102,0.3)', el: <WaIcon size={9} /> },
+                { bg: 'rgba(200,169,110,0.15)', border: 'rgba(200,169,110,0.3)', el: <Zap size={9} className="text-[#C8A96E]" /> },
+                { bg: 'rgba(79,195,247,0.12)',  border: 'rgba(79,195,247,0.25)', el: <Mail size={9} className="text-[#4FC3F7]" /> },
+                { bg: 'rgba(66,133,244,0.12)',  border: 'rgba(66,133,244,0.25)', el: <Calendar size={9} className="text-[#4285F4]" /> },
+              ].map(({ bg, border, el }, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 3.7 + i * 0.08, duration: 0.3 }}
+                  className="w-5 h-5 flex items-center justify-center"
+                  style={{ background: bg, border: `1px solid ${border}`, borderRadius: 2 }}
+                >
+                  {el}
+                </motion.div>
+              ))}
+            </div>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 4.1 }}
+              className="text-[9px] text-[#4ADE80]/70 tracking-wide"
+            >
+              ✓ 3 acciones
+            </motion.span>
+          </div>
+        </motion.div>
+
+        {/* ── RESULT CARDS ── */}
+        <div className="flex gap-2">
+          {resultCards.map(({ icon: Icon, color, bg, border, label, sub }, i) => (
             <motion.div
-              key={id}
-              initial={{ opacity: 0, y: 6, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay, duration: 0.4, ease: [0.16,1,0.3,1] }}
-              className={`flex ${from === 'user' ? 'justify-end' : 'justify-start'}`}
+              key={label}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 3.8 + i * 0.1, duration: 0.5, ease: [0.16,1,0.3,1] }}
+              className="flex-1 flex items-center gap-2.5 px-3 py-3"
+              style={{ background: bg, border: `1px solid ${border}`, borderRadius: 2 }}
             >
               <div
-                className="max-w-[82%] px-3.5 py-2.5 text-[12px] leading-relaxed whitespace-pre-line"
-                style={from === 'user'
-                  ? { background: '#1A3324', border: '1px solid rgba(37,211,102,0.15)', borderRadius: '14px 14px 2px 14px', color: '#C8C5C0' }
-                  : { background: '#141414', border: '1px solid rgba(200,169,110,0.18)', borderRadius: '14px 14px 14px 2px', color: '#C8C5C0',
-                      boxShadow: 'inset 0 1px 0 rgba(200,169,110,0.05)' }
-                }
+                className="w-7 h-7 flex items-center justify-center shrink-0"
+                style={{ background: `${color}15`, border: `1px solid ${color}30`, borderRadius: 2 }}
               >
-                {from === 'bot' && (
-                  <div className="text-[9px] tracking-[0.12em] uppercase text-[#C8A96E]/50 mb-1.5">IA · PyMeLab</div>
-                )}
-                {text}
-                <div className={`flex items-center gap-1 mt-1.5 ${from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <span className="text-[9px] text-[#333]">{time}</span>
-                  {from === 'user' && <span className="text-[10px] text-[#25D366]/60">✓✓</span>}
-                </div>
+                <Icon size={13} style={{ color }} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[11px] font-medium leading-tight truncate" style={{ color: '#D0CCC6' }}>{label}</div>
+                <div className="text-[9px] leading-tight mt-0.5 truncate" style={{ color: '#444' }}>{sub}</div>
               </div>
             </motion.div>
           ))}
-
-          {/* Typing indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ delay: 2.8, duration: 1.2, times: [0, 0.1, 0.7, 1] }}
-            className="flex justify-start"
-          >
-            <div style={{ background: '#141414', border: '1px solid rgba(200,169,110,0.15)', borderRadius: '14px 14px 14px 2px' }}>
-              <TypingDots />
-            </div>
-          </motion.div>
         </div>
 
-        {/* Input bar */}
-        <div className="flex items-center gap-2 px-3 py-2.5 border-t border-[#111]" style={{ background: '#0C0C0C' }}>
-          <div className="flex-1 text-[11px] text-[#2A2A2A] px-3 py-2 rounded-full" style={{ background: '#141414', border: '1px solid #1A1A1A' }}>
-            Escribe un mensaje...
-          </div>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(37,211,102,0.15)' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* ── AUTOMATION TRIGGER BAR ── */}
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ delay: 3.6, duration: 0.5, ease: [0.16,1,0.3,1] }}
-        className="absolute left-0 right-0 z-30"
-        style={{ top: 340, transformOrigin: 'left' }}
-      >
-        <div
-          className="flex items-center gap-2.5 px-4 py-2.5"
-          style={{ background: 'rgba(200,169,110,0.07)', border: '1px solid rgba(200,169,110,0.2)', borderTop: '1px solid rgba(200,169,110,0.3)' }}
+        {/* ── BOTTOM BADGE ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 4.3, duration: 0.5 }}
+          className="flex items-center justify-between px-3 py-2"
+          style={{ background: '#080808', border: '1px solid #111' }}
         >
-          <Zap size={11} className="text-[#C8A96E] shrink-0" />
-          <span className="text-[10px] tracking-[0.14em] uppercase text-[#C8A96E]/70 flex-1">
-            Automatización disparada · n8n
-          </span>
-          {/* Flow nodes */}
-          <div className="flex items-center gap-1.5">
-            {[
-              { bg: 'rgba(37,211,102,0.15)', border: 'rgba(37,211,102,0.3)', el: <WaIcon size={9} /> },
-              { bg: 'rgba(200,169,110,0.15)', border: 'rgba(200,169,110,0.3)', el: <Zap size={9} className="text-[#C8A96E]" /> },
-              { bg: 'rgba(79,195,247,0.12)',  border: 'rgba(79,195,247,0.25)', el: <Mail size={9} className="text-[#4FC3F7]" /> },
-              { bg: 'rgba(66,133,244,0.12)',  border: 'rgba(66,133,244,0.25)', el: <Calendar size={9} className="text-[#4285F4]" /> },
-            ].map(({ bg, border, el }, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 3.7 + i * 0.08, duration: 0.3 }}
-                className="w-5 h-5 flex items-center justify-center"
-                style={{ background: bg, border: `1px solid ${border}`, borderRadius: 2 }}
-              >
-                {el}
-              </motion.div>
-            ))}
-          </div>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 4.1 }}
-            className="text-[9px] text-[#4ADE80]/70 tracking-wide"
-          >
-            ✓ 3 acciones
-          </motion.span>
-        </div>
-      </motion.div>
+          <span className="text-[9px] tracking-[0.12em] uppercase text-[#2A2A2A]">Tiempo total de respuesta</span>
+          <span className="text-[10px] font-medium text-[#C8A96E]/60 font-display italic">2.3 segundos</span>
+        </motion.div>
 
-      {/* ── RESULT CARDS ── */}
-      <div className="absolute left-0 right-0 flex gap-2" style={{ top: 392 }}>
-        {resultCards.map(({ icon: Icon, color, bg, border, label, sub }, i) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 3.8 + i * 0.1, duration: 0.5, ease: [0.16,1,0.3,1] }}
-            className="flex-1 flex items-center gap-2.5 px-3 py-3"
-            style={{ background: bg, border: `1px solid ${border}`, borderRadius: 2 }}
-          >
-            <div
-              className="w-7 h-7 flex items-center justify-center shrink-0"
-              style={{ background: `${color}15`, border: `1px solid ${color}30`, borderRadius: 2 }}
-            >
-              <Icon size={13} style={{ color }} />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[11px] font-medium leading-tight truncate" style={{ color: '#D0CCC6' }}>{label}</div>
-              <div className="text-[9px] leading-tight mt-0.5 truncate" style={{ color: '#444' }}>{sub}</div>
-            </div>
-          </motion.div>
-        ))}
       </div>
-
-      {/* ── BOTTOM BADGE ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 4.3, duration: 0.5 }}
-        className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2"
-        style={{ background: '#080808', borderTop: '1px solid #111' }}
-      >
-        <span className="text-[9px] tracking-[0.12em] uppercase text-[#2A2A2A]">Tiempo total de respuesta</span>
-        <span className="text-[10px] font-medium text-[#C8A96E]/60 font-display italic">2.3 segundos</span>
-      </motion.div>
-
     </div>
   )
 }
