@@ -478,16 +478,24 @@ export default function DemoPage() {
               </motion.p>
 
               {/* CTA */}
-              <motion.div {...fadeUp(0.54)} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
+              <motion.div {...fadeUp(0.54)} className="mb-12">
                 <Link
                   href="/demo"
-                  className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-[13px] font-semibold tracking-[0.06em] uppercase overflow-hidden transition-all duration-300 hover:bg-[#D4B87E] hover:shadow-[0_0_40px_rgba(200,169,110,0.45)]"
+                  className="group relative inline-flex items-center gap-3 px-9 py-4 overflow-hidden transition-all duration-300 hover:shadow-[0_0_48px_rgba(200,169,110,0.5)]"
+                  style={{
+                    background: 'linear-gradient(135deg, #B8954E 0%, #C8A96E 45%, #D4B87E 100%)',
+                    boxShadow: '0 2px 24px rgba(200,169,110,0.25), inset 0 1px 0 rgba(255,255,255,0.15)',
+                  }}
                 >
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-                  Solicitar mi demo gratis
-                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                  {/* shimmer */}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+                  <span className="text-[#0A0A0A] text-[13px] font-bold tracking-[0.1em] uppercase whitespace-nowrap">
+                    Solicitar mi demo gratis
+                  </span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A]/15 shrink-0 group-hover:bg-[#0A0A0A]/25 transition-colors duration-200">
+                    <ArrowRight size={13} className="text-[#0A0A0A] group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </span>
                 </Link>
-                <span className="text-xs text-[#2E2E2E] font-light tracking-wide">Sin tarjeta · Sin contrato · Respuesta en 48h</span>
               </motion.div>
 
               {/* Trust pills */}
