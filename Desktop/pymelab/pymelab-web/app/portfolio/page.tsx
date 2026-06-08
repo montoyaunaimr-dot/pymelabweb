@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import {
   ArrowRight, Search, Zap, Video, Check,
   ShieldCheck, Clock, ChevronDown, MessageCircle,
-  Mail, BarChart3, Calendar, Sparkles,
+  Mail, BarChart3, Calendar, Sparkles, Circle,
 } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 
@@ -18,6 +19,14 @@ function Tag({ children }: { children: React.ReactNode }) {
     </span>
   )
 }
+
+/* ── Hero floating card ───────────────────────────────────────── */
+const demoSteps = [
+  { label: 'Formulario recibido',      done: true  },
+  { label: 'Analizando tu negocio',    done: true  },
+  { label: 'Construyendo prototipo',   done: false, active: true },
+  { label: 'Videollamada lista',       done: false },
+]
 
 /* ── Data ─────────────────────────────────────────────────────── */
 const receives = [
@@ -78,10 +87,10 @@ const steps = [
 ]
 
 const guarantees = [
-  { icon: ShieldCheck, title: '100 % gratis',       desc: 'Sin tarjeta, sin datos de pago, sin letra pequeña.' },
-  { icon: Check,       title: 'Sin compromiso',      desc: 'No hay contrato que firmar. Decides tú, cuando quieras.' },
-  { icon: Sparkles,    title: 'Personalizado',        desc: 'Diseñado para tu negocio y sector específico, no una demo genérica.' },
-  { icon: Clock,       title: 'Respuesta en 48h',    desc: 'Máximo 48 horas desde que rellenas el formulario.' },
+  { icon: ShieldCheck, title: '100 % gratis',    desc: 'Sin tarjeta, sin datos de pago, sin letra pequeña.' },
+  { icon: Check,       title: 'Sin compromiso',   desc: 'No hay contrato que firmar. Decides tú, cuando quieras.' },
+  { icon: Sparkles,    title: 'Personalizado',    desc: 'Diseñado para tu negocio y sector específico, no una demo genérica.' },
+  { icon: Clock,       title: 'Respuesta en 48h', desc: 'Máximo 48 horas desde que rellenas el formulario.' },
 ]
 
 const examples = [
@@ -114,6 +123,14 @@ const faqs = [
   },
 ]
 
+/* ── Stagger variants ─────────────────────────────────────────── */
+const ease = [0.16, 1, 0.3, 1] as const
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 22 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.65, delay, ease },
+})
+
 /* ── FAQ Item ─────────────────────────────────────────────────── */
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
@@ -145,58 +162,210 @@ export default function DemoPage() {
 
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="pt-36 pb-28 px-6 relative overflow-hidden">
-        {/* Grid bg — desktop */}
+
+        {/* Grid bg */}
         <div className="hidden md:block absolute inset-0 opacity-[0.022] pointer-events-none" style={{
           backgroundImage: `linear-gradient(rgba(200,169,110,1) 1px,transparent 1px),linear-gradient(90deg,rgba(200,169,110,1) 1px,transparent 1px)`,
           backgroundSize: '80px 80px',
         }} />
-        <div className="hidden md:block absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#C8A96E]/[0.04] blur-[120px] pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto relative">
+        {/* Ambient glow */}
+        <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#C8A96E]/[0.05] blur-[140px] pointer-events-none" />
 
-          {/* Tag */}
-          <div className="mb-7 flex items-center gap-3">
-            <Tag>Demo gratuita · Sin compromiso</Tag>
-          </div>
+        {/* Decorative "48" — desktop */}
+        <div className="hidden lg:block absolute right-[5%] top-1/2 -translate-y-1/2 font-display text-[22rem] font-bold italic leading-none text-[#C8A96E]/[0.025] select-none pointer-events-none">
+          48
+        </div>
 
-          {/* Headline */}
-          <div className="overflow-hidden mb-6">
-            <h1 className="font-display text-5xl md:text-7xl font-light italic text-[#F0EDE8] leading-[0.95]">
-              Tu automatización<br />
-              <span className="text-[#C8A96E] font-bold not-italic">personalizada,</span><br />
-              en 48 horas.
-            </h1>
-          </div>
+        <div className="max-w-6xl mx-auto relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-          <p className="text-[#555] text-lg font-light max-w-xl leading-relaxed mb-10">
-            No un vídeo genérico. Construimos un prototipo real de tu flujo,
-            específico para tu negocio — y te lo enseñamos funcionando en directo.
-          </p>
+            {/* LEFT — copy */}
+            <div>
+              {/* Live badge */}
+              <motion.div {...fadeUp(0)} className="mb-6 inline-flex items-center gap-2.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4ADE80]" />
+                </span>
+                <span className="text-[11px] tracking-[0.18em] uppercase text-[#4ADE80]/80 font-light">
+                  Disponible ahora · Sin lista de espera
+                </span>
+              </motion.div>
 
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-14">
-            <Link
-              href="/demo"
-              className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-[13px] font-semibold tracking-[0.06em] uppercase overflow-hidden transition-all duration-300 hover:bg-[#D4B87E] hover:shadow-[0_0_32px_rgba(200,169,110,0.4)]"
+              {/* Tag */}
+              <motion.div {...fadeUp(0.05)} className="mb-7">
+                <Tag>Demo gratuita · Sin compromiso</Tag>
+              </motion.div>
+
+              {/* Headline — clip reveal */}
+              <div className="overflow-hidden mb-2">
+                <motion.h1
+                  initial={{ y: '105%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-display text-5xl md:text-6xl lg:text-7xl font-light italic text-[#F0EDE8] leading-[0.95]"
+                >
+                  Tu automatización
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden mb-2">
+                <motion.h1
+                  initial={{ y: '105%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-display text-5xl md:text-6xl lg:text-7xl font-bold not-italic leading-[0.95]"
+                  style={{ background: 'linear-gradient(135deg,#9A7A48,#C8A96E,#E2C99A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+                >
+                  personalizada,
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden mb-8">
+                <motion.h1
+                  initial={{ y: '105%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-display text-5xl md:text-6xl lg:text-7xl font-light italic text-[#F0EDE8] leading-[0.95]"
+                >
+                  en 48 horas.
+                </motion.h1>
+              </div>
+
+              <motion.p {...fadeUp(0.42)} className="text-[#555] text-base md:text-lg font-light max-w-xl leading-relaxed mb-10">
+                No un vídeo genérico. Construimos un prototipo real de tu flujo,
+                específico para tu negocio — y te lo enseñamos funcionando en directo.
+              </motion.p>
+
+              {/* CTA */}
+              <motion.div {...fadeUp(0.54)} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
+                <Link
+                  href="/demo"
+                  className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C8A96E] text-[#0A0A0A] text-[13px] font-semibold tracking-[0.06em] uppercase overflow-hidden transition-all duration-300 hover:bg-[#D4B87E] hover:shadow-[0_0_40px_rgba(200,169,110,0.45)]"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+                  Solicitar mi demo gratis
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                </Link>
+                <span className="text-xs text-[#2E2E2E] font-light tracking-wide">Sin tarjeta · Sin contrato · Respuesta en 48h</span>
+              </motion.div>
+
+              {/* Trust pills */}
+              <motion.div {...fadeUp(0.65)} className="flex flex-wrap gap-2">
+                {['100% gratis', 'Prototipo funcional', 'Sin compromiso', 'Videollamada incluida'].map((p, i) => (
+                  <motion.span
+                    key={p}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.65 + i * 0.07 }}
+                    className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase text-[#C8A96E]/80 border border-[#C8A96E]/20 bg-[#C8A96E]/[0.04] px-3 py-1.5"
+                  >
+                    <Check size={8} className="text-[#C8A96E]" />
+                    {p}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* RIGHT — demo status card (desktop only) */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden lg:block"
             >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-              Solicitar mi demo gratis
-              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-            </Link>
-            <span className="text-xs text-[#333] font-light tracking-wide">Sin tarjeta · Sin contrato · Respuesta en 48h</span>
-          </div>
-
-          {/* Trust pills */}
-          <div className="flex flex-wrap gap-3">
-            {['100% gratis', 'Prototipo funcional', 'Sin compromiso', 'Videollamada incluida'].map(p => (
-              <span
-                key={p}
-                className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase text-[#C8A96E]/80 border border-[#C8A96E]/20 bg-[#C8A96E]/[0.04] px-3 py-1.5"
+              <div
+                className="relative border border-[#C8A96E]/25 bg-[#0C0B08] p-8"
+                style={{ boxShadow: '0 0 60px rgba(200,169,110,0.08), inset 0 1px 0 rgba(200,169,110,0.06)' }}
               >
-                <Check size={9} className="text-[#C8A96E]" />
-                {p}
-              </span>
-            ))}
+                {/* Top line */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/50 to-transparent" />
+
+                {/* Header */}
+                <div className="flex items-center justify-between mb-7">
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] uppercase text-[#C8A96E]/60 mb-1">PyMeLab · Demo</div>
+                    <div className="text-sm font-semibold text-[#F0EDE8]">Tu automatización</div>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] tracking-[0.12em] uppercase text-[#4ADE80]/80">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#4ADE80]" />
+                    </span>
+                    En proceso
+                  </div>
+                </div>
+
+                {/* Steps */}
+                <div className="space-y-4 mb-7">
+                  {demoSteps.map(({ label, done, active }, i) => (
+                    <motion.div
+                      key={label}
+                      initial={{ opacity: 0, x: 12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                      className="flex items-center gap-3"
+                    >
+                      <div className={`w-5 h-5 flex items-center justify-center shrink-0 ${
+                        done
+                          ? 'bg-[#C8A96E]/10 border border-[#C8A96E]/40'
+                          : active
+                            ? 'bg-[#4ADE80]/10 border border-[#4ADE80]/40'
+                            : 'border border-[#222]'
+                      }`}>
+                        {done && <Check size={10} className="text-[#C8A96E]" />}
+                        {active && (
+                          <motion.div
+                            animate={{ opacity: [1, 0.3, 1] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            <Circle size={6} className="text-[#4ADE80] fill-[#4ADE80]" />
+                          </motion.div>
+                        )}
+                      </div>
+                      <span className={`text-[12px] font-light ${
+                        done ? 'text-[#666]' : active ? 'text-[#D0CCC6]' : 'text-[#333]'
+                      }`}>
+                        {label}
+                      </span>
+                      {done && <span className="ml-auto text-[9px] tracking-wide text-[#C8A96E]/50">✓</span>}
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-[#1A1A1A] mb-6" />
+
+                {/* Stats row */}
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { val: '48h',  label: 'Entrega máx.' },
+                    { val: '30m',  label: 'Videollamada' },
+                    { val: '0€',   label: 'Coste total'  },
+                  ].map(({ val, label }) => (
+                    <div key={label} className="text-center">
+                      <div className="font-display text-xl font-light italic text-[#C8A96E] mb-0.5">{val}</div>
+                      <div className="text-[9px] tracking-[0.12em] uppercase text-[#333]">{label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bottom line */}
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/30 to-transparent" />
+              </div>
+
+              {/* Below card — quote */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+                className="mt-4 px-2"
+              >
+                <p className="text-[11px] text-[#2A2A2A] font-light leading-relaxed text-center">
+                  Prototipo construido específicamente para tu negocio,<br />no una plantilla genérica.
+                </p>
+              </motion.div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -232,7 +401,6 @@ export default function DemoPage() {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/60 to-transparent" />
                   )}
 
-                  {/* Number */}
                   <div className={`w-9 h-9 rounded-full border flex items-center justify-center mb-6 ${
                     highlight ? 'border-[#C8A96E]/60' : 'border-[#252525]'
                   }`}>
@@ -241,11 +409,10 @@ export default function DemoPage() {
                     </span>
                   </div>
 
-                  {/* Icon */}
                   <div className={`w-12 h-12 flex items-center justify-center mb-5 border ${
                     highlight ? 'border-[#C8A96E]/30 bg-[#C8A96E]/[0.07]' : 'border-[#1E1E1E] bg-[#111]'
                   }`}>
-                    <Icon size={20} className={highlight ? 'text-[#C8A96E]' : 'text-[#C8A96E]'} />
+                    <Icon size={20} className="text-[#C8A96E]" />
                   </div>
 
                   <h3 className="text-base font-semibold text-[#F0EDE8] mb-3">{title}</h3>
@@ -279,7 +446,6 @@ export default function DemoPage() {
           </AnimateIn>
 
           <div className="relative">
-            {/* Vertical connector line (desktop) */}
             <div className="hidden md:block absolute left-[28px] top-10 bottom-10 w-px bg-gradient-to-b from-[#C8A96E]/40 via-[#C8A96E]/20 to-transparent" />
 
             <div className="space-y-3">
@@ -292,7 +458,6 @@ export default function DemoPage() {
                   }`}
                     style={accent ? { boxShadow: '0 0 40px rgba(200,169,110,0.06)' } : {}}
                   >
-                    {/* Step indicator */}
                     <div className="flex flex-col items-center gap-2 shrink-0">
                       <div className={`w-14 h-14 flex items-center justify-center border relative z-10 ${
                         accent
@@ -302,8 +467,6 @@ export default function DemoPage() {
                         <Icon size={20} className="text-[#C8A96E]" />
                       </div>
                     </div>
-
-                    {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-3 mb-2">
                         <span className={`font-display text-xs font-medium ${accent ? 'text-[#C8A96E]' : 'text-[#444]'}`}>
@@ -413,7 +576,7 @@ export default function DemoPage() {
           </AnimateIn>
 
           <AnimateIn>
-            <div className="border border-[#141414] bg-[#0D0D0D] divide-y-0 px-6 md:px-8">
+            <div className="border border-[#141414] bg-[#0D0D0D] px-6 md:px-8">
               {faqs.map(faq => (
                 <FaqItem key={faq.q} q={faq.q} a={faq.a} />
               ))}
