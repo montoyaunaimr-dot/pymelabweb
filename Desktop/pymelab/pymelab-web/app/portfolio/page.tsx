@@ -632,34 +632,192 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* ══ EJEMPLOS ══════════════════════════════════════════ */}
-      <section className="py-24 px-6 bg-[#080808]">
-        <div className="max-w-5xl mx-auto">
-          <AnimateIn className="mb-12 text-center">
+      {/* ══ EJEMPLOS — BENTO GRID ═════════════════════════════ */}
+      <section className="py-28 px-6 bg-[#080808] relative overflow-hidden">
+        <div className="hidden md:block absolute inset-0 opacity-[0.015] pointer-events-none" style={{
+          backgroundImage: `radial-gradient(circle, rgba(200,169,110,1) 1px, transparent 1px)`,
+          backgroundSize: '44px 44px',
+        }} />
+
+        <div className="max-w-5xl mx-auto relative">
+          <AnimateIn className="mb-14 text-center">
             <Tag>Ejemplos de demos</Tag>
-            <h2 className="font-display text-3xl md:text-4xl font-light italic text-[#F0EDE8] mt-4 mb-3 leading-tight">
-              ¿No sabes qué pedir? Aquí tienes ideas
+            <h2 className="font-display text-4xl md:text-5xl font-light italic text-[#F0EDE8] mt-4 mb-3 leading-tight">
+              ¿No sabes qué pedir?
             </h2>
-            <p className="text-[#444] text-sm">Las automatizaciones más solicitadas por negocios como el tuyo.</p>
+            <p className="text-[#3A3A3A] text-sm">Estas son las automatizaciones que más impacto generan en negocios como el tuyo.</p>
           </AnimateIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {examples.map(({ icon: Icon, color, label, desc }) => (
-              <AnimateIn key={label}>
-                <div className="flex items-start gap-5 p-6 border border-[#141414] bg-[#0D0D0D] hover:border-[#1E1E1E] transition-colors duration-300 group">
-                  <div
-                    className="w-11 h-11 flex items-center justify-center shrink-0"
-                    style={{ background: `${color}14`, border: `1px solid ${color}30` }}
-                  >
-                    <Icon size={18} style={{ color }} />
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+
+            {/* ── CARD 1: Bot WhatsApp — GRANDE (col 8) ── */}
+            <AnimateIn className="md:col-span-8" delay={0}>
+              <div className="relative h-full min-h-[280px] p-8 border border-[#1A1A1A] bg-[#0C0B08] overflow-hidden group hover:border-[#25D366]/20 transition-all duration-500"
+                style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.025)' }}>
+                {/* Glow on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse at 0% 100%, rgba(37,211,102,0.06) 0%, transparent 60%)' }} />
+
+                {/* Mini chat preview — decorative */}
+                <div className="absolute right-6 top-6 w-52 space-y-2 opacity-40 group-hover:opacity-70 transition-opacity duration-500 select-none pointer-events-none">
+                  {[
+                    { from: 'user', text: 'Quiero pedir cita' },
+                    { from: 'bot',  text: 'Claro, ¿martes a las 10h?' },
+                    { from: 'user', text: 'Perfecto 👍' },
+                  ].map((m, i) => (
+                    <div key={i} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      <div className="text-[10px] px-2.5 py-1.5 max-w-[80%] leading-relaxed"
+                        style={m.from === 'user'
+                          ? { background: '#1A3324', border: '1px solid rgba(37,211,102,0.2)', borderRadius: '10px 10px 2px 10px', color: '#888' }
+                          : { background: '#141414', border: '1px solid rgba(200,169,110,0.15)', borderRadius: '10px 10px 10px 2px', color: '#888' }
+                        }>
+                        {m.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-12 h-12 flex items-center justify-center mb-6 shrink-0"
+                    style={{ background: 'rgba(37,211,102,0.1)', border: '1px solid rgba(37,211,102,0.25)' }}>
+                    <MessageCircle size={20} style={{ color: '#25D366' }} />
                   </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#D0CCC6] mb-1.5">{label}</h4>
-                    <p className="text-[13px] text-[#444] leading-relaxed font-light">{desc}</p>
+                  <div className="flex-1">
+                    <div className="text-[9px] tracking-[0.18em] uppercase text-[#25D366]/50 mb-2">Bot conversacional</div>
+                    <h3 className="font-display text-2xl font-light italic text-[#F0EDE8] mb-3 leading-tight">Bot de WhatsApp<br />con IA</h3>
+                    <p className="text-[13px] text-[#3A3A3A] leading-relaxed max-w-xs">
+                      Gestiona reservas, cualifica leads y responde preguntas frecuentes sin que tu equipo mueva un dedo.
+                    </p>
+                  </div>
+                  {/* Metric */}
+                  <div className="mt-6 flex items-end gap-4">
+                    <div>
+                      <div className="font-display text-4xl font-light italic text-[#25D366]/80 leading-none">2s</div>
+                      <div className="text-[9px] tracking-[0.15em] uppercase text-[#2A2A2A] mt-1">Tiempo de respuesta</div>
+                    </div>
+                    <div className="w-px h-8 bg-[#1E1E1E]" />
+                    <div>
+                      <div className="font-display text-4xl font-light italic text-[#25D366]/80 leading-none">24/7</div>
+                      <div className="text-[9px] tracking-[0.15em] uppercase text-[#2A2A2A] mt-1">Sin descanso</div>
+                    </div>
                   </div>
                 </div>
-              </AnimateIn>
-            ))}
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#25D366]/20 to-transparent" />
+              </div>
+            </AnimateIn>
+
+            {/* ── CARD 2: Pipeline leads — PEQUEÑA (col 4) ── */}
+            <AnimateIn className="md:col-span-4" delay={0.08}>
+              <div className="relative h-full min-h-[280px] p-7 border border-[#C8A96E]/25 bg-[#0D0C09] overflow-hidden group hover:border-[#C8A96E]/40 transition-all duration-500"
+                style={{ boxShadow: '0 0 40px rgba(200,169,110,0.06), inset 0 1px 0 rgba(200,169,110,0.06)' }}>
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/50 to-transparent" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 60%)' }} />
+
+                {/* Funnel visual */}
+                <div className="absolute right-4 bottom-14 flex flex-col items-center gap-1 opacity-25 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none select-none">
+                  {[64, 48, 36, 24].map((w, i) => (
+                    <div key={i} className="rounded-sm" style={{ width: w, height: 8, background: `rgba(200,169,110,${0.6 - i * 0.12})` }} />
+                  ))}
+                </div>
+
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-12 h-12 flex items-center justify-center mb-5 shrink-0"
+                    style={{ background: 'rgba(200,169,110,0.1)', border: '1px solid rgba(200,169,110,0.3)' }}>
+                    <Mail size={20} className="text-[#C8A96E]" />
+                  </div>
+                  <div className="text-[9px] tracking-[0.18em] uppercase text-[#C8A96E]/50 mb-2">Captación</div>
+                  <h3 className="font-display text-xl font-light italic text-[#F0EDE8] mb-3 leading-tight">Pipeline de leads automático</h3>
+                  <p className="text-[12px] text-[#3A3A3A] leading-relaxed flex-1">
+                    Cada lead se captura, clasifica y recibe respuesta en menos de 30 segundos.
+                  </p>
+                  <div className="mt-4">
+                    <div className="font-display text-3xl font-light italic text-[#C8A96E]/80 leading-none">0</div>
+                    <div className="text-[9px] tracking-[0.15em] uppercase text-[#2A2A2A] mt-1">Leads perdidos</div>
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/30 to-transparent" />
+              </div>
+            </AnimateIn>
+
+            {/* ── CARD 3: Informes — PEQUEÑA (col 4) ── */}
+            <AnimateIn className="md:col-span-4" delay={0.14}>
+              <div className="relative h-full min-h-[220px] p-7 border border-[#1A1A1A] bg-[#0C0B08] overflow-hidden group hover:border-[#4FC3F7]/20 transition-all duration-500">
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse at 100% 0%, rgba(79,195,247,0.06) 0%, transparent 60%)' }} />
+
+                {/* Mini bar chart */}
+                <div className="absolute right-5 top-5 flex items-end gap-1 h-10 opacity-30 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none select-none">
+                  {[4,7,5,9,6,10,8].map((h, i) => (
+                    <div key={i} className="w-2 rounded-sm" style={{ height: `${h * 10}%`, background: 'rgba(79,195,247,0.6)' }} />
+                  ))}
+                </div>
+
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-11 h-11 flex items-center justify-center mb-5 shrink-0"
+                    style={{ background: 'rgba(79,195,247,0.08)', border: '1px solid rgba(79,195,247,0.2)' }}>
+                    <BarChart3 size={18} style={{ color: '#4FC3F7' }} />
+                  </div>
+                  <div className="text-[9px] tracking-[0.18em] uppercase text-[#4FC3F7]/40 mb-2">Reporting</div>
+                  <h3 className="font-display text-xl font-light italic text-[#F0EDE8] mb-2 leading-tight">Informes automáticos</h3>
+                  <p className="text-[12px] text-[#3A3A3A] leading-relaxed flex-1">Dashboard que se genera y llega a tu email cada semana sin tocar nada.</p>
+                  <div className="mt-4 text-[10px] text-[#4FC3F7]/50 tracking-wide">↗ Cada lunes · 08:00h</div>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* ── CARD 4: Agenda — MEDIANA (col 5) ── */}
+            <AnimateIn className="md:col-span-5" delay={0.2}>
+              <div className="relative h-full min-h-[220px] p-7 border border-[#1A1A1A] bg-[#0C0B08] overflow-hidden group hover:border-[#A78BFA]/20 transition-all duration-500">
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(167,139,250,0.07) 0%, transparent 60%)' }} />
+
+                {/* Mini calendar dots */}
+                <div className="absolute right-5 top-5 grid grid-cols-5 gap-1 opacity-20 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none select-none">
+                  {Array.from({ length: 15 }).map((_, i) => (
+                    <div key={i} className="w-2.5 h-2.5 rounded-sm"
+                      style={{ background: [2,5,8,11].includes(i) ? 'rgba(167,139,250,0.8)' : 'rgba(255,255,255,0.15)' }} />
+                  ))}
+                </div>
+
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-11 h-11 flex items-center justify-center mb-5 shrink-0"
+                    style={{ background: 'rgba(167,139,250,0.08)', border: '1px solid rgba(167,139,250,0.2)' }}>
+                    <Calendar size={18} style={{ color: '#A78BFA' }} />
+                  </div>
+                  <div className="text-[9px] tracking-[0.18em] uppercase text-[#A78BFA]/40 mb-2">Gestión</div>
+                  <h3 className="font-display text-xl font-light italic text-[#F0EDE8] mb-2 leading-tight">Agenda inteligente</h3>
+                  <p className="text-[12px] text-[#3A3A3A] leading-relaxed flex-1">Reservas gestionadas por IA desde WhatsApp o la web. Sin recepcionista, sin errores.</p>
+                  <div className="mt-4 text-[10px] text-[#A78BFA]/50 tracking-wide">Sin dobles reservas · Confirmación automática</div>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* ── CARD 5: CTA inline — MEDIANA (col 3) ── */}
+            <AnimateIn className="md:col-span-3" delay={0.26}>
+              <Link href="/demo" className="block h-full min-h-[220px] group">
+                <div className="relative h-full p-7 border border-[#C8A96E]/30 bg-[#0D0C09] overflow-hidden flex flex-col justify-between transition-all duration-500 group-hover:border-[#C8A96E]/60 group-hover:shadow-[0_0_40px_rgba(200,169,110,0.12)]"
+                  style={{ boxShadow: '0 0 30px rgba(200,169,110,0.05)' }}>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/50 to-transparent" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(200,169,110,0.08) 0%, transparent 70%)' }} />
+                  <div className="relative z-10">
+                    <div className="text-[9px] tracking-[0.2em] uppercase text-[#C8A96E]/60 mb-3">¿El tuyo no está?</div>
+                    <p className="font-display text-lg font-light italic text-[#F0EDE8] leading-snug">
+                      Cuéntanos tu proceso y lo automatizamos.
+                    </p>
+                  </div>
+                  <div className="relative z-10 mt-6 flex items-center gap-2 text-[11px] font-semibold tracking-[0.1em] uppercase text-[#C8A96E] group-hover:gap-3 transition-all duration-300">
+                    Pedir mi demo
+                    <ArrowRight size={12} />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/30 to-transparent" />
+                </div>
+              </Link>
+            </AnimateIn>
+
           </div>
         </div>
       </section>
