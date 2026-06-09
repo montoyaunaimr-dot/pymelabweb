@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useGSAP } from '@gsap/react'
@@ -128,18 +128,12 @@ const caseFlow = [
 /* ═══════════════════════════════════════════════════════════════════ */
 export default function HomePage() {
   const { t } = useLang()
-  const [isDesktop, setIsDesktop] = useState(false)
-
   const containerRef    = useRef<HTMLDivElement>(null)
   const heroRef         = useRef<HTMLElement>(null)
   const heroContentRef  = useRef<HTMLDivElement>(null)
   const servicesGridRef = useRef<HTMLDivElement>(null)
   const howItRef        = useRef<HTMLDivElement>(null)
   const caseRef         = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    setIsDesktop(window.innerWidth >= 1024)
-  }, [])
 
   useGSAP(() => {
     const isMobile = window.innerWidth < 768
@@ -266,12 +260,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT — Automation Flow Diagram (desktop only — not rendered on mobile) */}
-            {isDesktop && (
-              <div className="hero-orb hidden lg:flex items-center justify-center">
-                <AutomationFlow />
-              </div>
-            )}
+            {/* RIGHT — Automation Flow Diagram */}
+            <div className="hero-orb flex items-center justify-center">
+              <AutomationFlow />
+            </div>
           </div>
         </div>
 
