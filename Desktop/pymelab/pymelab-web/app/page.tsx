@@ -292,7 +292,7 @@ export default function HomePage() {
           {statsData.map(({ num, suffix, labelKey }) => (
             <div key={labelKey} className="text-center">
               <div className="font-display text-5xl md:text-6xl font-light italic text-[#F0EDE8] mb-2 leading-none">
-                <span className="stat-num" data-target={num}>0</span>
+                <span className="stat-num" data-target={num}>{num}</span>
                 <span className="text-[#C8A96E]">{suffix}</span>
               </div>
               <div className="text-[10px] tracking-[0.2em] uppercase text-[#444]">{t(labelKey)}</div>
