@@ -68,33 +68,6 @@ function HeroVisual() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#C8A96E]/[0.06] blur-[80px]" />
       </div>
 
-      {/* ── STATS mini card — floats top-right over chat header ── */}
-      <motion.div
-        initial={{ opacity: 0, x: 20, y: -10 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.7, ease: [0.16,1,0.3,1] }}
-        className="absolute top-0 right-0 w-44 border border-[#C8A96E]/20 bg-[#0C0B08] px-4 py-3 z-20"
-        style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(200,169,110,0.06)' }}
-      >
-        <div className="text-[9px] tracking-[0.18em] uppercase text-[#444] mb-2">Respuesta media</div>
-        <div className="flex items-end gap-1.5 mb-3">
-          <span className="font-display text-3xl font-light italic text-[#C8A96E] leading-none">2.3</span>
-          <span className="text-[10px] text-[#555] mb-0.5">segundos</span>
-        </div>
-        <div className="flex items-end gap-0.5 h-6">
-          {[3,5,4,7,5,8,6,9,7,10].map((h, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 rounded-sm bg-[#C8A96E]/30"
-              initial={{ height: 0 }}
-              animate={{ height: `${h * 10}%` }}
-              transition={{ delay: 0.6 + i * 0.04, duration: 0.4 }}
-            />
-          ))}
-        </div>
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/40 to-transparent" />
-      </motion.div>
-
       {/* ── FLOW LAYOUT — chat → trigger → cards ── */}
       <div className="flex flex-col gap-2">
 
